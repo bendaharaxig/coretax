@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CORETAX</title>
+<title>CORETAX - Mode Anggota</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
@@ -140,7 +140,7 @@ tr:nth-child(even) { background:#f9f9f9; }
 
 @keyframes spin { to { transform:rotate(360deg); } }
 
-/* 📱 RESPONSIVE HP */
+/* RESPONSIVE */
 @media (max-width:768px) {
   body { margin:10px; }
   h1 { font-size:20px; }
@@ -149,11 +149,6 @@ tr:nth-child(even) { background:#f9f9f9; }
   .kpi {
     flex-direction:column;
     gap:12px;
-  }
-
-  .card {
-    padding:16px;
-    font-size:14px;
   }
 
   table {
@@ -168,21 +163,9 @@ tr:nth-child(even) { background:#f9f9f9; }
     padding:8px;
   }
 
-  thead th {
-    position:sticky;
-    top:0;
-    z-index:2;
-  }
-
   .btn-toggle {
     width:100%;
     font-size:13px;
-  }
-
-  .spinner {
-    width:45px;
-    height:45px;
-    border-width:5px;
   }
 }
 </style>
@@ -201,17 +184,10 @@ tr:nth-child(even) { background:#f9f9f9; }
 
   <div style="background:#e3f2fd;padding:12px;border-radius:10px;
               margin-bottom:15px;font-weight:600;color:#0d47a1;">
-    👀 Mode Anggota — hanya dapat melihat data
+    👀 Mode Anggota — Total saldo disembunyikan
   </div>
 
-  <div class="kpi">
-    <div class="card initial">Saldo Awal<br><span id="saldoAwal">Rp 0</span></div>
-    <div class="card income">Pemasukan<br><span id="totalPemasukan">Rp 0</span></div>
-    <div class="card expense">Pengeluaran<br><span id="totalPengeluaran">Rp 0</span></div>
-    <div class="card balance">Saldo<br><span id="totalSaldo">Rp 0</span></div>
-  </div>
-
-  <!-- Riwayat Transaksi (Toggle) -->
+  <!-- Riwayat -->
   <h3>📑 Riwayat Transaksi</h3>
   <button id="toggleRiwayat" class="btn-toggle">👁 Lihat Riwayat Transaksi</button>
 
@@ -246,6 +222,15 @@ tr:nth-child(even) { background:#f9f9f9; }
     <tbody id="tabelUtang"></tbody>
   </table>
 
+  <!-- KPI PINDAH KE BAWAH -->
+  <h3 style="margin-top:30px;">📊 Informasi Saldo</h3>
+  <div class="kpi">
+    <div class="card initial">Saldo Awal<br><span>-</span></div>
+    <div class="card income">Pemasukan<br><span>-</span></div>
+    <div class="card expense">Pengeluaran<br><span>-</span></div>
+    <div class="card balance">Saldo<br><span>-</span></div>
+  </div>
+
 </div>
 
 <script>
@@ -261,11 +246,6 @@ async function loadData(){
   try {
     const res = await fetch(scriptURL);
     const data = await res.json();
-
-    document.getElementById("saldoAwal").textContent = rupiah(data.saldoAwal);
-    document.getElementById("totalPemasukan").textContent = rupiah(data.pemasukan);
-    document.getElementById("totalPengeluaran").textContent = rupiah(data.pengeluaran);
-    document.getElementById("totalSaldo").textContent = rupiah(data.saldo);
 
     const kas = document.getElementById("tabelKas");
     kas.innerHTML = "";
@@ -305,8 +285,8 @@ async function loadData(){
 }
 
 loadData();
+setInterval(loadData, 60000);
 
-/* Toggle Riwayat */
 const btn = document.getElementById("toggleRiwayat");
 const box = document.getElementById("riwayatBox");
 btn.onclick = () => {
@@ -318,11 +298,7 @@ btn.onclick = () => {
     btn.textContent = "👁 Lihat Riwayat Transaksi";
   }
 };
-
-/* Auto refresh 60 detik */
-setInterval(loadData, 60000);
 </script>
 
 </body>
 </html>
-
