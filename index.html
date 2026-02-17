@@ -3,195 +3,258 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CORETAX - Mode Anggota</title>
+<title>CORETAX</title>
+<link rel="icon" type="image/png" href="logo.png">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
-html { scroll-behavior: smooth; }
+*{box-sizing:border-box}
 
-body {
+body{
   font-family:"Poppins",sans-serif;
-  margin:20px;
-  background:#eef2f7;
-}
-
-h1 {
-  text-align:center;
-  margin-bottom:15px;
+  margin:0;
+  background:#f4f6fb;
   color:#333;
-  font-size:24px;
 }
 
-.container {
-  max-width:1000px;
-  margin:auto;
+/* HEADER */
+.header{
   background:#fff;
-  padding:25px;
-  border-radius:15px;
-  box-shadow:0 6px 15px rgba(0,0,0,.1);
+  padding:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 8px rgba(0,0,0,.05);
+}
+
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo-box{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  overflow:hidden;
+  background:#eef1f6;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 2px 6px rgba(0,0,0,.1);
+}
+
+.logo-box img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.header h1{
+  font-size:18px;
+  margin:0;
+}
+
+.btn-admin{
+  background:#111;
+  color:#fff;
+  padding:7px 12px;
+  border-radius:7px;
+  font-size:12px;
+  text-decoration:none;
+}
+
+/* CONTAINER */
+.container{
+  max-width:600px;
+  margin:auto;
+  padding:15px;
+}
+
+/* CARD */
+.card{
+  background:#fff;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:15px;
+  box-shadow:0 3px 10px rgba(0,0,0,.05);
+}
+
+/* BUTTON */
+.btn-toggle{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:8px;
+  background:#007bff;
+  color:#fff;
+  font-size:13px;
+  cursor:pointer;
+}
+
+/* SEARCH */
+.search{
+  width:100%;
+  padding:9px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  margin-bottom:10px;
+}
+
+/* TABLE */
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:12px;
+}
+
+th{
+  background:#007bff;
+  color:#fff;
+  padding:8px;
+  text-align:left;
+}
+
+td{
+  padding:8px;
+  border-bottom:1px solid #eee;
+}
+
+.status-lunas{
+  background:#28a745;
+  color:#fff;
+  padding:3px 6px;
+  border-radius:6px;
+  font-size:10px;
+}
+
+.status-belum{
+  background:#dc3545;
+  color:#fff;
+  padding:3px 6px;
+  border-radius:6px;
+  font-size:10px;
 }
 
 /* KPI */
-.kpi {
+.kpi{
   display:flex;
-  gap:20px;
-  justify-content:space-around;
-  margin-top:20px;
-  flex-wrap:wrap;
+  flex-direction:column;
+  gap:10px;
 }
 
-.card {
-  flex:1;
-  min-width:180px;
-  padding:20px;
-  border-radius:15px;
-  color:#fff;
-  text-align:center;
-  font-weight:600;
-}
-
-.card span {
-  display:block;
-  margin-top:6px;
-  font-size:18px;
-}
-
-.initial { background:linear-gradient(135deg,#ffc107,#ffcd39); }
-.income  { background:linear-gradient(135deg,#28a745,#60d394); }
-.expense { background:linear-gradient(135deg,#dc3545,#ff6f61); }
-.balance { background:linear-gradient(135deg,#17a2b8,#4dd0e1); }
-
-/* Table */
-table {
-  width:100%;
-  border-collapse:collapse;
-  margin-top:15px;
-  font-size:14px;
-}
-
-th, td {
-  border:1px solid #ddd;
-  padding:10px;
-  white-space:nowrap;
-}
-
-th {
-  background:#007bff;
-  color:#fff;
-}
-
-tr:nth-child(even) { background:#f9f9f9; }
-
-/* Status */
-.status-lunas {
-  background:#28a745;
-  color:#fff;
-  padding:4px 10px;
-  border-radius:8px;
-  font-size:12px;
-  font-weight:600;
-}
-
-.status-belum {
-  background:#dc3545;
-  color:#fff;
-  padding:4px 10px;
-  border-radius:8px;
-  font-size:12px;
-  font-weight:600;
-}
-
-/* Toggle button */
-.btn-toggle {
-  margin-top:10px;
-  padding:10px 14px;
-  border:none;
+.kpi-box{
+  background:#eef3ff;
+  padding:12px;
   border-radius:10px;
-  background:#007bff;
-  color:#fff;
-  font-weight:600;
-  cursor:pointer;
-  font-size:14px;
+  font-size:13px;
 }
 
-/* Loading */
-#loadingOverlay {
+.kpi-box strong{
+  display:block;
+  font-size:15px;
+  margin-top:4px;
+}
+
+/* LOADING MODERN */
+#loadingOverlay{
   position:fixed;
-  top:0; left:0;
-  width:100%; height:100%;
-  background:rgba(255,255,255,.85);
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(255,255,255,0.95);
+  backdrop-filter:blur(4px);
   display:none;
   justify-content:center;
   align-items:center;
   z-index:9999;
-  flex-direction:column;
 }
 
-.spinner {
-  border:6px solid #e0e0e0;
-  border-top:6px solid #007bff;
+.loading-box{
+  text-align:center;
+}
+
+.logo-loader{
+  width:90px;
+  height:90px;
   border-radius:50%;
-  width:60px;
-  height:60px;
-  animation:spin 1s linear infinite;
-  margin-bottom:15px;
+  overflow:hidden;
+  margin:auto;
+  box-shadow:0 0 25px rgba(0,123,255,.4);
+  animation:pulse 1.8s infinite ease-in-out;
 }
 
-@keyframes spin { to { transform:rotate(360deg); } }
+.logo-loader img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  animation:spin 2.5s linear infinite;
+}
 
-/* RESPONSIVE */
-@media (max-width:768px) {
-  body { margin:10px; }
-  h1 { font-size:20px; }
-  .container { padding:15px; }
+.loading-box p{
+  margin-top:15px;
+  font-size:14px;
+  font-weight:500;
+  color:#555;
+}
 
-  .kpi {
-    flex-direction:column;
-    gap:12px;
-  }
+@keyframes spin{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
 
-  table {
-    display:block;
-    overflow-x:auto;
-    white-space:nowrap;
-    border-radius:10px;
-  }
-
-  th, td {
-    font-size:12px;
-    padding:8px;
-  }
-
-  .btn-toggle {
-    width:100%;
-    font-size:13px;
-  }
+@keyframes pulse{
+  0%{box-shadow:0 0 10px rgba(0,123,255,.3)}
+  50%{box-shadow:0 0 30px rgba(0,123,255,.6)}
+  100%{box-shadow:0 0 10px rgba(0,123,255,.3)}
 }
 </style>
 </head>
 
 <body>
 
+<!-- LOADING -->
 <div id="loadingOverlay">
-  <div class="spinner"></div>
-  <div>⏳ Memuat data...</div>
+  <div class="loading-box">
+    <div class="logo-loader">
+      <img src="logo.png" alt="Logo">
+    </div>
+    <p>Memuat data CORETAX...</p>
+  </div>
 </div>
 
-<h1>📒 CORETAX (Core Recording & Transaction Application)</h1>
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <div class="logo-box">
+      <img src="logo.png" alt="Logo">
+    </div>
+    <h1>CORETAX</h1>
+  </div>
+  <a href="https://bendaharaxig.github.io/inputkas/" class="btn-admin">🔐 Admin</a>
+</div>
 
 <div class="container">
 
-  <div style="background:#e3f2fd;padding:12px;border-radius:10px;
-              margin-bottom:15px;font-weight:600;color:#0d47a1;">
-    👀 Mode Anggota — Total saldo disembunyikan
-  </div>
+<div class="card">
+  👀 Mode Anggota - Tidak dapat mengedit data.
+</div>
 
-  <!-- Riwayat -->
-  <h3>📑 Riwayat Transaksi</h3>
-  <button id="toggleRiwayat" class="btn-toggle">👁 Lihat Riwayat Transaksi</button>
+<!-- GRAFIK -->
+<div class="card">
+  <h3 style="margin-top:0;font-size:14px;">📊 Grafik Keuangan</h3>
+  <canvas id="kasChart"></canvas>
+</div>
 
-  <div id="riwayatBox" style="display:none;">
+<!-- RIWAYAT -->
+<div class="card">
+  <button id="toggleRiwayat" class="btn-toggle">👁 Lihat Riwayat</button>
+  <div id="riwayatBox" style="display:none;margin-top:10px;">
     <table>
       <thead>
         <tr>
@@ -200,104 +263,126 @@ tr:nth-child(even) { background:#f9f9f9; }
           <th>Keterangan</th>
           <th>Debit</th>
           <th>Kredit</th>
-          <th>Saldo</th>
         </tr>
       </thead>
       <tbody id="tabelKas"></tbody>
     </table>
   </div>
+</div>
 
-  <!-- Status Utang -->
-  <h3 style="margin-top:25px;">💰 Status Utang Anggota</h3>
+<!-- STATUS -->
+<div class="card">
+  <h3 style="margin-top:0;font-size:14px;">💰 Status Anggota</h3>
+  <input type="text" id="searchInput" class="search" placeholder="Cari nama anggota...">
   <table>
     <thead>
       <tr>
-        <th>Nama</th>
-        <th>Sudah Bayar</th>
-        <th>Total Kewajiban</th>
+        <th>Nama Anggota Wajib Kas</th>
         <th>Sisa Utang</th>
         <th>Status</th>
       </tr>
     </thead>
     <tbody id="tabelUtang"></tbody>
   </table>
+</div>
 
-  <!-- KPI PINDAH KE BAWAH -->
-  <h3 style="margin-top:30px;">📊 Informasi Saldo</h3>
+<!-- KPI -->
+<div class="card">
+  <h3 style="margin-top:0;font-size:14px;">📊 Informasi Saldo</h3>
   <div class="kpi">
-    <div class="card initial">Saldo Awal<br><span>-</span></div>
-    <div class="card income">Pemasukan<br><span>-</span></div>
-    <div class="card expense">Pengeluaran<br><span>-</span></div>
-    <div class="card balance">Saldo<br><span>-</span></div>
+    <div class="kpi-box">Saldo Awal<strong>-</strong></div>
+    <div class="kpi-box">Pemasukan<strong>-</strong></div>
+    <div class="kpi-box">Pengeluaran<strong>-</strong></div>
+    <div class="kpi-box">Saldo Akhir<strong>-</strong></div>
   </div>
+</div>
 
 </div>
 
 <script>
-const scriptURL = "https://script.google.com/macros/s/AKfycbyu6jaGpSW9ttJCmFQv1Z0_Rk3geFsNg3wtednUi4ZYPQTFgiXCCtaN3W2rIHVDIbImnA/exec";
-const rupiah = n => 'Rp ' + Number(n||0).toLocaleString('id-ID');
+const scriptURL="https://script.google.com/macros/s/AKfycbyu6jaGpSW9ttJCmFQv1Z0_Rk3geFsNg3wtednUi4ZYPQTFgiXCCtaN3W2rIHVDIbImnA/exec";
+const rupiah=n=>'Rp '+Number(n||0).toLocaleString('id-ID');
+let chart;
 
-function showLoading(show){
-  document.getElementById("loadingOverlay").style.display = show ? "flex" : "none";
+function showLoading(s){
+ document.getElementById("loadingOverlay").style.display=s?"flex":"none";
 }
 
 async function loadData(){
-  showLoading(true);
-  try {
-    const res = await fetch(scriptURL);
-    const data = await res.json();
+ showLoading(true);
+ try{
+  const res=await fetch(scriptURL);
+  const data=await res.json();
 
-    const kas = document.getElementById("tabelKas");
-    kas.innerHTML = "";
-    data.dataKas.forEach(r=>{
-      kas.innerHTML += `
-        <tr>
-          <td>${r.Tanggal||""}</td>
-          <td>${r.Nama||""}</td>
-          <td>${r.Keterangan||""}</td>
-          <td>${rupiah(r.Debit)}</td>
-          <td>${rupiah(r.Kredit)}</td>
-          <td>${rupiah(r.Saldo)}</td>
-        </tr>`;
-    });
+  let totalDebit=0,totalKredit=0;
 
-    const utang = document.getElementById("tabelUtang");
-    utang.innerHTML = "";
-    data.statistik.forEach(r=>{
-      const status = r.utang<=0
-        ? '<span class="status-lunas">Lunas</span>'
-        : '<span class="status-belum">Belum</span>';
-      utang.innerHTML += `
-        <tr>
-          <td>${r.nama}</td>
-          <td>${rupiah(r.totalBayar)}</td>
-          <td>${rupiah(data.mingguBerjalan * data.iuranMingguan)}</td>
-          <td>${rupiah(r.utang)}</td>
-          <td>${status}</td>
-        </tr>`;
-    });
+  const kas=document.getElementById("tabelKas");
+  kas.innerHTML="";
+  data.dataKas.forEach(r=>{
+   totalDebit+=Number(r.Debit||0);
+   totalKredit+=Number(r.Kredit||0);
+   kas.innerHTML+=`
+    <tr>
+     <td>${r.Tanggal||""}</td>
+     <td>${r.Nama||""}</td>
+     <td>${r.Keterangan||""}</td>
+     <td>${rupiah(r.Debit)}</td>
+     <td>${rupiah(r.Kredit)}</td>
+    </tr>`;
+  });
 
-  } catch(e){
-    alert("Gagal memuat data");
-  } finally {
-    showLoading(false);
-  }
+  const ctx=document.getElementById("kasChart").getContext("2d");
+  if(chart) chart.destroy();
+  chart=new Chart(ctx,{
+   type:"doughnut",
+   data:{
+    labels:["Pemasukan","Pengeluaran"],
+    datasets:[{
+     data:[totalDebit,totalKredit],
+     backgroundColor:["#28a745","#dc3545"]
+    }]
+   },
+   options:{plugins:{legend:{position:"bottom"}}}
+  });
+
+  const utang=document.getElementById("tabelUtang");
+  utang.innerHTML="";
+  data.statistik.forEach(r=>{
+   const status=r.utang<=0?
+   '<span class="status-lunas">Lunas</span>':
+   '<span class="status-belum">Belum</span>';
+   utang.innerHTML+=`
+    <tr>
+     <td>${r.nama}</td>
+     <td>${rupiah(r.utang)}</td>
+     <td>${status}</td>
+    </tr>`;
+  });
+
+ }catch(e){alert("Gagal memuat data")}
+ finally{showLoading(false)}
 }
 
 loadData();
-setInterval(loadData, 60000);
+setInterval(loadData,60000);
 
-const btn = document.getElementById("toggleRiwayat");
-const box = document.getElementById("riwayatBox");
-btn.onclick = () => {
-  if (box.style.display === "none") {
-    box.style.display = "block";
-    btn.textContent = "❌ Tutup Riwayat Transaksi";
-  } else {
-    box.style.display = "none";
-    btn.textContent = "👁 Lihat Riwayat Transaksi";
-  }
+document.getElementById("toggleRiwayat").onclick=function(){
+ const box=document.getElementById("riwayatBox");
+ if(box.style.display==="none"){
+  box.style.display="block";
+  this.textContent="❌ Tutup Riwayat";
+ }else{
+  box.style.display="none";
+  this.textContent="👁 Lihat Riwayat";
+ }
 };
+
+document.getElementById("searchInput").addEventListener("keyup",function(){
+ let val=this.value.toLowerCase();
+ document.querySelectorAll("#tabelUtang tr").forEach(tr=>{
+  tr.style.display=tr.innerText.toLowerCase().includes(val)?"":"none";
+ });
+});
 </script>
 
 </body>
