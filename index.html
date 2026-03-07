@@ -6,213 +6,220 @@
 <title>CORETAX</title>
 <link rel="icon" type="image/png" href="logo.png">
 
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
+
 *{box-sizing:border-box}
 
 body{
-  font-family:"Poppins",sans-serif;
-  margin:0;
-  background:#f4f6fb;
-  color:#333;
+font-family:"Poppins",sans-serif;
+margin:0;
+background:#f2f5fb;
+color:#333;
 }
 
 /* HEADER */
 .header{
-  background:#fff;
-  padding:15px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  box-shadow:0 2px 8px rgba(0,0,0,.05);
+background:linear-gradient(135deg,#005bea,#00c6fb);
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+color:#fff;
 }
 
 .header-left{
-  display:flex;
-  align-items:center;
-  gap:10px;
+display:flex;
+align-items:center;
+gap:12px;
 }
 
 .logo-box{
-  width:42px;
-  height:42px;
-  border-radius:50%;
-  overflow:hidden;
-  background:#eef1f6;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 2px 6px rgba(0,0,0,.1);
+width:45px;
+height:45px;
+border-radius:12px;
+overflow:hidden;
+background:#fff;
+padding:4px;
 }
 
 .logo-box img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+width:100%;
+height:100%;
+object-fit:cover;
 }
 
 .header h1{
-  font-size:18px;
-  margin:0;
+font-size:18px;
+margin:0;
+font-weight:600;
+letter-spacing:.5px;
 }
 
 .btn-admin{
-  background:#111;
-  color:#fff;
-  padding:7px 12px;
-  border-radius:7px;
-  font-size:12px;
-  text-decoration:none;
+background:#fff;
+color:#005bea;
+padding:7px 13px;
+border-radius:20px;
+font-size:12px;
+text-decoration:none;
+font-weight:500;
 }
 
 /* CONTAINER */
 .container{
-  max-width:600px;
-  margin:auto;
-  padding:15px;
+max-width:600px;
+margin:auto;
+padding:15px;
+margin-top:-25px;
 }
 
 /* CARD */
 .card{
-  background:#fff;
-  padding:15px;
-  border-radius:12px;
-  margin-bottom:15px;
-  box-shadow:0 3px 10px rgba(0,0,0,.05);
+background:#fff;
+padding:16px;
+border-radius:16px;
+margin-bottom:15px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
 }
 
 /* BUTTON */
 .btn-toggle{
-  width:100%;
-  padding:10px;
-  border:none;
-  border-radius:8px;
-  background:#007bff;
-  color:#fff;
-  font-size:13px;
-  cursor:pointer;
+width:100%;
+padding:11px;
+border:none;
+border-radius:10px;
+background:linear-gradient(135deg,#005bea,#00c6fb);
+color:#fff;
+font-size:13px;
+cursor:pointer;
+font-weight:500;
 }
 
 /* SEARCH */
 .search{
-  width:100%;
-  padding:9px;
-  border-radius:8px;
-  border:1px solid #ddd;
-  margin-bottom:10px;
+width:100%;
+padding:10px;
+border-radius:10px;
+border:1px solid #eee;
+margin-bottom:10px;
+background:#f8f9fc;
 }
 
 /* TABLE */
 table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:12px;
+width:100%;
+border-collapse:collapse;
+font-size:12px;
 }
 
 th{
-  background:#007bff;
-  color:#fff;
-  padding:8px;
-  text-align:left;
+background:#f1f4fb;
+color:#555;
+padding:9px;
+text-align:left;
+font-weight:600;
 }
 
 td{
-  padding:8px;
-  border-bottom:1px solid #eee;
+padding:9px;
+border-bottom:1px solid #f0f0f0;
 }
 
+/* STATUS */
 .status-lunas{
-  background:#28a745;
-  color:#fff;
-  padding:3px 6px;
-  border-radius:6px;
-  font-size:10px;
+background:#28c76f;
+color:#fff;
+padding:4px 8px;
+border-radius:20px;
+font-size:10px;
 }
 
 .status-belum{
-  background:#dc3545;
-  color:#fff;
-  padding:3px 6px;
-  border-radius:6px;
-  font-size:10px;
+background:#ff4d4f;
+color:#fff;
+padding:4px 8px;
+border-radius:20px;
+font-size:10px;
 }
 
 /* KPI */
 .kpi{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
 }
 
 .kpi-box{
-  background:#eef3ff;
-  padding:12px;
-  border-radius:10px;
-  font-size:13px;
+background:linear-gradient(135deg,#eef3ff,#f7f9ff);
+padding:14px;
+border-radius:14px;
+font-size:12px;
 }
 
 .kpi-box strong{
-  display:block;
-  font-size:15px;
-  margin-top:4px;
+display:block;
+font-size:16px;
+margin-top:5px;
+color:#005bea;
 }
 
-/* LOADING MODERN */
+/* LOADING */
 #loadingOverlay{
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(255,255,255,0.95);
-  backdrop-filter:blur(4px);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:9999;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(255,255,255,0.95);
+backdrop-filter:blur(6px);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
 }
 
 .loading-box{
-  text-align:center;
+text-align:center;
 }
 
 .logo-loader{
-  width:90px;
-  height:90px;
-  border-radius:50%;
-  overflow:hidden;
-  margin:auto;
-  box-shadow:0 0 25px rgba(0,123,255,.4);
-  animation:pulse 1.8s infinite ease-in-out;
+width:90px;
+height:90px;
+border-radius:20px;
+overflow:hidden;
+margin:auto;
+box-shadow:0 0 25px rgba(0,123,255,.4);
+animation:pulse 1.8s infinite ease-in-out;
 }
 
 .logo-loader img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  animation:spin 2.5s linear infinite;
+width:100%;
+height:100%;
+object-fit:cover;
+animation:spin 3s linear infinite;
 }
 
 .loading-box p{
-  margin-top:15px;
-  font-size:14px;
-  font-weight:500;
-  color:#555;
+margin-top:15px;
+font-size:14px;
+font-weight:500;
+color:#666;
 }
 
 @keyframes spin{
-  0%{transform:rotate(0deg)}
-  100%{transform:rotate(360deg)}
+0%{transform:rotate(0deg)}
+100%{transform:rotate(360deg)}
 }
 
 @keyframes pulse{
-  0%{box-shadow:0 0 10px rgba(0,123,255,.3)}
-  50%{box-shadow:0 0 30px rgba(0,123,255,.6)}
-  100%{box-shadow:0 0 10px rgba(0,123,255,.3)}
+0%{box-shadow:0 0 10px rgba(0,123,255,.3)}
+50%{box-shadow:0 0 35px rgba(0,123,255,.6)}
+100%{box-shadow:0 0 10px rgba(0,123,255,.3)}
 }
+
 </style>
 </head>
 
@@ -220,169 +227,242 @@ td{
 
 <!-- LOADING -->
 <div id="loadingOverlay">
-  <div class="loading-box">
-    <div class="logo-loader">
-      <img src="logo.png" alt="Logo">
-    </div>
-    <p>Memuat data CORETAX...</p>
-  </div>
+<div class="loading-box">
+<div class="logo-loader">
+<img src="logo.png">
+</div>
+<p>Memuat data CORETAX...</p>
+</div>
 </div>
 
 <!-- HEADER -->
 <div class="header">
-  <div class="header-left">
-    <div class="logo-box">
-      <img src="logo.png" alt="Logo">
-    </div>
-    <h1>CORETAX</h1>
-  </div>
-  <a href="https://bendaharaxig.github.io/inputkas/" class="btn-admin">🔐 Admin</a>
+<div class="header-left">
+<div class="logo-box">
+<img src="logo.png">
+</div>
+<h1>CORETAX</h1>
+</div>
+<a href="https://bendaharaxig.github.io/inputkas/" class="btn-admin">🔐 Admin</a>
 </div>
 
 <div class="container">
 
 <div class="card">
-  👀 Mode Anggota - Tidak dapat mengedit data.
+👀 Mode Anggota - Tidak dapat mengedit data.
 </div>
 
 <!-- GRAFIK -->
 <div class="card">
-  <h3 style="margin-top:0;font-size:14px;">📊 Grafik Keuangan</h3>
-  <canvas id="kasChart"></canvas>
+<h3 style="margin-top:0;font-size:14px;">📊 Grafik Keuangan</h3>
+<canvas id="kasChart"></canvas>
 </div>
 
 <!-- RIWAYAT -->
 <div class="card">
-  <button id="toggleRiwayat" class="btn-toggle">👁 Lihat Riwayat</button>
-  <div id="riwayatBox" style="display:none;margin-top:10px;">
-    <table>
-      <thead>
-        <tr>
-          <th>Tanggal</th>
-          <th>Nama</th>
-          <th>Keterangan</th>
-          <th>Debit</th>
-          <th>Kredit</th>
-        </tr>
-      </thead>
-      <tbody id="tabelKas"></tbody>
-    </table>
-  </div>
+<button id="toggleRiwayat" class="btn-toggle">👁 Lihat Riwayat</button>
+
+<div id="riwayatBox" style="display:none;margin-top:10px;">
+<table>
+<thead>
+<tr>
+<th>Tanggal</th>
+<th>Nama</th>
+<th>Keterangan</th>
+<th>Debit</th>
+<th>Kredit</th>
+</tr>
+</thead>
+
+<tbody id="tabelKas"></tbody>
+</table>
+</div>
 </div>
 
 <!-- STATUS -->
 <div class="card">
-  <h3 style="margin-top:0;font-size:14px;">💰 Status Anggota</h3>
-  <input type="text" id="searchInput" class="search" placeholder="Cari nama anggota...">
-  <table>
-    <thead>
-      <tr>
-        <th>Anggota Wajib Kas</th>
-        <th>Sisa Utang</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody id="tabelUtang"></tbody>
-  </table>
+<h3 style="margin-top:0;font-size:14px;">💰 Status Anggota</h3>
+
+<input type="text" id="searchInput" class="search" placeholder="Cari nama anggota...">
+
+<table>
+<thead>
+<tr>
+<th>Anggota Wajib Kas</th>
+<th>Sisa Utang</th>
+<th>Status</th>
+</tr>
+</thead>
+
+<tbody id="tabelUtang"></tbody>
+</table>
+
 </div>
 
 <!-- KPI -->
 <div class="card">
-  <h3 style="margin-top:0;font-size:14px;">📊 Informasi Saldo</h3>
-  <div class="kpi">
-    <div class="kpi-box">Saldo Awal<strong>-</strong></div>
-    <div class="kpi-box">Pemasukan<strong>-</strong></div>
-    <div class="kpi-box">Pengeluaran<strong>-</strong></div>
-    <div class="kpi-box">Saldo Akhir<strong>-</strong></div>
-  </div>
+
+<h3 style="margin-top:0;font-size:14px;">📊 Informasi Saldo</h3>
+
+<div class="kpi">
+
+<div class="kpi-box">
+Saldo Awal
+<strong>-</strong>
+</div>
+
+<div class="kpi-box">
+Pemasukan
+<strong>-</strong>
+</div>
+
+<div class="kpi-box">
+Pengeluaran
+<strong>-</strong>
+</div>
+
+<div class="kpi-box">
+Saldo Akhir
+<strong>-</strong>
+</div>
+
+</div>
+
 </div>
 
 </div>
 
 <script>
+
 const scriptURL="https://script.google.com/macros/s/AKfycbyu6jaGpSW9ttJCmFQv1Z0_Rk3geFsNg3wtednUi4ZYPQTFgiXCCtaN3W2rIHVDIbImnA/exec";
+
 const rupiah=n=>'Rp '+Number(n||0).toLocaleString('id-ID');
+
 let chart;
 
 function showLoading(s){
- document.getElementById("loadingOverlay").style.display=s?"flex":"none";
+document.getElementById("loadingOverlay").style.display=s?"flex":"none";
 }
 
 async function loadData(){
- showLoading(true);
- try{
-  const res=await fetch(scriptURL);
-  const data=await res.json();
 
-  let totalDebit=0,totalKredit=0;
+showLoading(true);
 
-  const kas=document.getElementById("tabelKas");
-  kas.innerHTML="";
-  data.dataKas.forEach(r=>{
-   totalDebit+=Number(r.Debit||0);
-   totalKredit+=Number(r.Kredit||0);
-   kas.innerHTML+=`
-    <tr>
-     <td>${r.Tanggal||""}</td>
-     <td>${r.Nama||""}</td>
-     <td>${r.Keterangan||""}</td>
-     <td>${rupiah(r.Debit)}</td>
-     <td>${rupiah(r.Kredit)}</td>
-    </tr>`;
-  });
+try{
 
-  const ctx=document.getElementById("kasChart").getContext("2d");
-  if(chart) chart.destroy();
-  chart=new Chart(ctx,{
-   type:"doughnut",
-   data:{
-    labels:["Pemasukan","Pengeluaran"],
-    datasets:[{
-     data:[totalDebit,totalKredit],
-     backgroundColor:["#28a745","#dc3545"]
-    }]
-   },
-   options:{plugins:{legend:{position:"bottom"}}}
-  });
+const res=await fetch(scriptURL);
 
-  const utang=document.getElementById("tabelUtang");
-  utang.innerHTML="";
-  data.statistik.forEach(r=>{
-   const status=r.utang<=0?
-   '<span class="status-lunas">Lunas</span>':
-   '<span class="status-belum">Belum</span>';
-   utang.innerHTML+=`
-    <tr>
-     <td>${r.nama}</td>
-     <td>${rupiah(r.utang)}</td>
-     <td>${status}</td>
-    </tr>`;
-  });
+const data=await res.json();
 
- }catch(e){alert("Gagal memuat data")}
- finally{showLoading(false)}
+let totalDebit=0,totalKredit=0;
+
+const kas=document.getElementById("tabelKas");
+
+kas.innerHTML="";
+
+data.dataKas.forEach(r=>{
+
+totalDebit+=Number(r.Debit||0);
+
+totalKredit+=Number(r.Kredit||0);
+
+kas.innerHTML+=`
+<tr>
+<td>${r.Tanggal||""}</td>
+<td>${r.Nama||""}</td>
+<td>${r.Keterangan||""}</td>
+<td>${rupiah(r.Debit)}</td>
+<td>${rupiah(r.Kredit)}</td>
+</tr>`;
+});
+
+const ctx=document.getElementById("kasChart").getContext("2d");
+
+if(chart) chart.destroy();
+
+chart=new Chart(ctx,{
+type:"doughnut",
+data:{
+labels:["Pemasukan","Pengeluaran"],
+datasets:[{
+data:[totalDebit,totalKredit],
+backgroundColor:["#28a745","#dc3545"]
+}]
+},
+options:{plugins:{legend:{position:"bottom"}}}
+});
+
+const utang=document.getElementById("tabelUtang");
+
+utang.innerHTML="";
+
+data.statistik.forEach(r=>{
+
+const status=r.utang<=0?
+'<span class="status-lunas">Lunas</span>':
+'<span class="status-belum">Belum</span>';
+
+utang.innerHTML+=`
+<tr>
+<td>${r.nama}</td>
+<td>${rupiah(r.utang)}</td>
+<td>${status}</td>
+</tr>`;
+
+});
+
+}
+
+catch(e){
+
+alert("Gagal memuat data")
+
+}
+
+finally{
+
+showLoading(false)
+
+}
+
 }
 
 loadData();
+
 setInterval(loadData,60000);
 
 document.getElementById("toggleRiwayat").onclick=function(){
- const box=document.getElementById("riwayatBox");
- if(box.style.display==="none"){
-  box.style.display="block";
-  this.textContent="❌ Tutup Riwayat";
- }else{
-  box.style.display="none";
-  this.textContent="👁 Lihat Riwayat";
- }
+
+const box=document.getElementById("riwayatBox");
+
+if(box.style.display==="none"){
+
+box.style.display="block";
+
+this.textContent="❌ Tutup Riwayat";
+
+}else{
+
+box.style.display="none";
+
+this.textContent="👁 Lihat Riwayat";
+
+}
+
 };
 
 document.getElementById("searchInput").addEventListener("keyup",function(){
- let val=this.value.toLowerCase();
- document.querySelectorAll("#tabelUtang tr").forEach(tr=>{
-  tr.style.display=tr.innerText.toLowerCase().includes(val)?"":"none";
- });
+
+let val=this.value.toLowerCase();
+
+document.querySelectorAll("#tabelUtang tr").forEach(tr=>{
+
+tr.style.display=tr.innerText.toLowerCase().includes(val)?"":"none";
+
 });
+
+});
+
 </script>
 
 </body>
