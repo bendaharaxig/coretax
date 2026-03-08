@@ -3,10 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>CORETAX</title>
-<link rel="icon" type="image/png" href="logo.png">
+
+<link rel="icon" href="logo.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
@@ -14,13 +17,14 @@
 *{box-sizing:border-box}
 
 body{
-font-family:"Poppins",sans-serif;
 margin:0;
+font-family:"Poppins",sans-serif;
 background:#f2f5fb;
 color:#333;
 }
 
 /* HEADER */
+
 .header{
 background:linear-gradient(135deg,#005bea,#00c6fb);
 padding:18px;
@@ -33,16 +37,16 @@ color:#fff;
 .header-left{
 display:flex;
 align-items:center;
-gap:12px;
+gap:10px;
 }
 
 .logo-box{
-width:45px;
-height:45px;
+width:42px;
+height:42px;
 border-radius:12px;
 overflow:hidden;
 background:#fff;
-padding:4px;
+padding:5px;
 }
 
 .logo-box img{
@@ -54,21 +58,64 @@ object-fit:cover;
 .header h1{
 font-size:18px;
 margin:0;
-font-weight:600;
-letter-spacing:.5px;
 }
 
 .btn-admin{
 background:#fff;
 color:#005bea;
-padding:7px 13px;
+padding:7px 12px;
 border-radius:20px;
 font-size:12px;
 text-decoration:none;
-font-weight:500;
+cursor:pointer;
+}
+
+/* LOGIN */
+
+#loginPage{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#f2f5fb;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:1000;
+}
+
+.login-card{
+background:white;
+padding:25px;
+border-radius:16px;
+box-shadow:0 10px 30px rgba(0,0,0,.1);
+width:280px;
+text-align:center;
+}
+
+.login-card select{
+width:100%;
+padding:10px;
+border-radius:10px;
+border:1px solid #ddd;
+margin-top:10px;
+}
+
+.login-card button{
+margin-top:15px;
+width:100%;
+padding:10px;
+border:none;
+border-radius:10px;
+background:#005bea;
+color:white;
+font-weight:600;
+cursor:pointer;
 }
 
 /* CONTAINER */
+
 .container{
 max-width:600px;
 margin:auto;
@@ -77,6 +124,7 @@ margin-top:-25px;
 }
 
 /* CARD */
+
 .card{
 background:#fff;
 padding:16px;
@@ -85,30 +133,91 @@ margin-bottom:15px;
 box-shadow:0 8px 20px rgba(0,0,0,.05);
 }
 
-/* BUTTON */
-.btn-toggle{
-width:100%;
-padding:11px;
-border:none;
-border-radius:10px;
-background:linear-gradient(135deg,#005bea,#00c6fb);
+/* ATM CARD */
+
+.atm-card{
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
 color:#fff;
-font-size:13px;
-cursor:pointer;
-font-weight:500;
+padding:22px;
+border-radius:18px;
+margin-bottom:15px;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
-/* SEARCH */
-.search{
+/* WARNA JIKA LUNAS */
+
+.atm-card.lunas{
+background:linear-gradient(135deg,#00b09b,#00ff87);
+}
+
+.atm-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:12px;
+}
+
+.atm-top img{
+width:35px;
+}
+
+.atm-number{
+margin-top:25px;
+font-size:18px;
+font-weight:600;
+}
+
+.atm-saldo{
+margin-top:10px;
+font-size:12px;
+}
+
+.atm-saldo h2{
+margin:4px 0 0;
+font-size:26px;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.grid-box{
+background:#f6f8ff;
+padding:14px;
+border-radius:12px;
+font-size:12px;
+}
+
+.grid-box strong{
+display:block;
+margin-top:4px;
+font-size:15px;
+color:#005bea;
+}
+
+/* PROGRESS */
+
+.progress-box{
 width:100%;
-padding:10px;
-border-radius:10px;
-border:1px solid #eee;
-margin-bottom:10px;
-background:#f8f9fc;
+background:#eee;
+border-radius:20px;
+height:14px;
+overflow:hidden;
+}
+
+.progress-bar{
+height:14px;
+background:linear-gradient(90deg,#00c6fb,#005bea);
+width:0%;
+transition:0.6s;
 }
 
 /* TABLE */
+
 table{
 width:100%;
 border-collapse:collapse;
@@ -117,56 +226,17 @@ font-size:12px;
 
 th{
 background:#f1f4fb;
-color:#555;
-padding:9px;
+padding:8px;
 text-align:left;
-font-weight:600;
 }
 
 td{
-padding:9px;
-border-bottom:1px solid #f0f0f0;
-}
-
-/* STATUS */
-.status-lunas{
-background:#28c76f;
-color:#fff;
-padding:4px 8px;
-border-radius:20px;
-font-size:10px;
-}
-
-.status-belum{
-background:#ff4d4f;
-color:#fff;
-padding:4px 8px;
-border-radius:20px;
-font-size:10px;
-}
-
-/* KPI */
-.kpi{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.kpi-box{
-background:linear-gradient(135deg,#eef3ff,#f7f9ff);
-padding:14px;
-border-radius:14px;
-font-size:12px;
-}
-
-.kpi-box strong{
-display:block;
-font-size:16px;
-margin-top:5px;
-color:#005bea;
+padding:8px;
+border-bottom:1px solid #eee;
 }
 
 /* LOADING */
+
 #loadingOverlay{
 position:fixed;
 top:0;
@@ -174,15 +244,10 @@ left:0;
 width:100%;
 height:100%;
 background:rgba(255,255,255,0.95);
-backdrop-filter:blur(6px);
-display:none;
+display:flex;
 justify-content:center;
 align-items:center;
-z-index:9999;
-}
-
-.loading-box{
-text-align:center;
+z-index:999;
 }
 
 .logo-loader{
@@ -190,33 +255,23 @@ width:90px;
 height:90px;
 border-radius:20px;
 overflow:hidden;
-margin:auto;
-box-shadow:0 0 25px rgba(0,123,255,.4);
-animation:pulse 1.8s infinite ease-in-out;
+animation:pulse 2s infinite;
 }
 
 .logo-loader img{
 width:100%;
 height:100%;
-object-fit:cover;
 animation:spin 3s linear infinite;
 }
 
-.loading-box p{
-margin-top:15px;
-font-size:14px;
-font-weight:500;
-color:#666;
-}
-
 @keyframes spin{
-0%{transform:rotate(0deg)}
+0%{transform:rotate(0)}
 100%{transform:rotate(360deg)}
 }
 
 @keyframes pulse{
 0%{box-shadow:0 0 10px rgba(0,123,255,.3)}
-50%{box-shadow:0 0 35px rgba(0,123,255,.6)}
+50%{box-shadow:0 0 30px rgba(0,123,255,.6)}
 100%{box-shadow:0 0 10px rgba(0,123,255,.3)}
 }
 
@@ -225,108 +280,143 @@ color:#666;
 
 <body>
 
-<!-- LOADING -->
-<div id="loadingOverlay">
-<div class="loading-box">
-<div class="logo-loader">
-<img src="logo.png">
-</div>
-<p>Memuat data CORETAX...</p>
+<div id="loginPage">
+<div class="login-card">
+<h2>Login CORETAX</h2>
+
+<select id="namaSelect">
+<option value="">Pilih Nama</option>
+</select>
+
+<button onclick="loginUser()">Masuk</button>
+
 </div>
 </div>
 
-<!-- HEADER -->
+<div id="loadingOverlay">
+<div class="logo-loader">
+<img src="logo.png">
+</div>
+</div>
+
 <div class="header">
+
 <div class="header-left">
 <div class="logo-box">
 <img src="logo.png">
 </div>
 <h1>CORETAX</h1>
 </div>
-<a href="https://bendaharaxig.github.io/inputkas/" class="btn-admin">🔐 Admin</a>
+
+<div>
+<a href="https://bendaharaxig.github.io/all/" class="btn-admin">All Data</a>
+<a onclick="logout()" class="btn-admin">Logout</a>
+</div>
+
 </div>
 
 <div class="container">
 
 <div class="card">
-👀 Mode Anggota - Tidak dapat mengedit data.
+<h3>Selamat datang</h3>
+<strong id="namaUser"></strong>
 </div>
 
-<!-- GRAFIK -->
+<div class="atm-card">
+
+<div class="atm-top">
+<span>CORETAX CARD</span>
+<img src="logo.png">
+</div>
+
+<div class="atm-number" id="namaUserCard"></div>
+
+<div class="atm-saldo">
+Sisa Utang Kas Anda
+<h2 id="saldoUser">Rp 0</h2>
+</div>
+
+</div>
+
+<div class="grid">
+
+<div class="grid-box">
+Total Kas Kelas
+<strong id="totalKas">Rp 0</strong>
+</div>
+
+<div class="grid-box">
+Total Pembayaran Anda
+<strong id="totalBayar">Rp 0</strong>
+</div>
+
+<div class="grid-box">
+Total Wajib Bayar
+<strong id="totalWajib">Rp 0</strong>
+</div>
+
+<div class="grid-box">
+Sisa Utang
+<strong id="utangUser">Rp 0</strong>
+</div>
+
+</div>
+
 <div class="card">
-<h3 style="margin-top:0;font-size:14px;">📊 Grafik Keuangan</h3>
+
+<h3>Progress Pembayaran</h3>
+
+<div class="progress-box">
+<div class="progress-bar" id="progressBar"></div>
+</div>
+
+<p id="progressText"></p>
+
+</div>
+
+<div class="card">
+<h3>Grafik Kas Kelas</h3>
 <canvas id="kasChart"></canvas>
 </div>
 
-<!-- RIWAYAT -->
 <div class="card">
-<button id="toggleRiwayat" class="btn-toggle">👁 Lihat Riwayat</button>
 
-<div id="riwayatBox" style="display:none;margin-top:10px;">
+<h3>Riwayat Transaksi Anda</h3>
+
 <table>
+
 <thead>
 <tr>
 <th>Tanggal</th>
-<th>Nama</th>
 <th>Keterangan</th>
-<th>Debit</th>
-<th>Kredit</th>
+<th>Masuk</th>
+<th>Keluar</th>
 </tr>
 </thead>
 
-<tbody id="tabelKas"></tbody>
+<tbody id="tabelUser"></tbody>
+
 </table>
-</div>
+
 </div>
 
-<!-- STATUS -->
 <div class="card">
-<h3 style="margin-top:0;font-size:14px;">💰 Status Anggota</h3>
 
-<input type="text" id="searchInput" class="search" placeholder="Cari nama anggota...">
+<h3>Ranking Pembayaran Kas</h3>
 
 <table>
+
 <thead>
 <tr>
-<th>Anggota Wajib Kas</th>
-<th>Sisa Utang</th>
-<th>Status</th>
+<th>Ranking</th>
+<th>Nama</th>
+<th>Total</th>
 </tr>
 </thead>
 
-<tbody id="tabelUtang"></tbody>
+<tbody id="rankingTable"></tbody>
+
 </table>
-
-</div>
-
-<!-- KPI -->
-<div class="card">
-
-<h3 style="margin-top:0;font-size:14px;">📊 Informasi Saldo</h3>
-
-<div class="kpi">
-
-<div class="kpi-box">
-Saldo Awal
-<strong>-</strong>
-</div>
-
-<div class="kpi-box">
-Pemasukan
-<strong>-</strong>
-</div>
-
-<div class="kpi-box">
-Pengeluaran
-<strong>-</strong>
-</div>
-
-<div class="kpi-box">
-Saldo Akhir
-<strong>-</strong>
-</div>
-
-</div>
 
 </div>
 
@@ -334,47 +424,117 @@ Saldo Akhir
 
 <script>
 
-const scriptURL="https://script.google.com/macros/s/AKfycbyu6jaGpSW9ttJCmFQv1Z0_Rk3geFsNg3wtednUi4ZYPQTFgiXCCtaN3W2rIHVDIbImnA/exec";
+const scriptURL="https://script.google.com/macros/s/AKfycbzjdnnjED9o5RyHOlaf7pPTtK8zAIZ3-er4sBTAP-T6X0F5qYehjhGXoW3GFAs4sdOj6w/exec";
+
+let kasPerMinggu=0;
+let mingguBerjalan=0;
 
 const rupiah=n=>'Rp '+Number(n||0).toLocaleString('id-ID');
 
 let chart;
 
-function showLoading(s){
-document.getElementById("loadingOverlay").style.display=s?"flex":"none";
+let namaLogin=localStorage.getItem("namaLogin");
+
+function loginUser(){
+const nama=document.getElementById("namaSelect").value;
+
+if(!nama){
+alert("Pilih nama terlebih dahulu");
+return;
+}
+
+localStorage.setItem("namaLogin",nama);
+location.reload();
+}
+
+function logout(){
+localStorage.removeItem("namaLogin");
+location.reload();
 }
 
 async function loadData(){
 
-showLoading(true);
-
 try{
 
 const res=await fetch(scriptURL);
-
 const data=await res.json();
 
-let totalDebit=0,totalKredit=0;
+kasPerMinggu=data.iuranMingguan || 0;
+mingguBerjalan=data.mingguBerjalan || 0;
 
-const kas=document.getElementById("tabelKas");
+const select=document.getElementById("namaSelect");
 
-kas.innerHTML="";
+if(data.namaAnggota){
+select.innerHTML='<option value="">Pilih Nama</option>';
+data.namaAnggota.forEach(n=>{
+select.innerHTML+=`<option value="${n}">${n}</option>`;
+});
+}
+
+if(!namaLogin){
+document.getElementById("loadingOverlay").style.display="none";
+return;
+}
+
+document.getElementById("loginPage").style.display="none";
+
+document.getElementById("namaUser").innerText=namaLogin;
+document.getElementById("namaUserCard").innerText=namaLogin;
+
+let totalDebit=0;
+let totalKredit=0;
+let totalBayar=0;
+
+const tabelUser=document.getElementById("tabelUser");
+tabelUser.innerHTML="";
 
 data.dataKas.forEach(r=>{
 
-totalDebit+=Number(r.Debit||0);
+const debit=Number(r.Debit||0);
+const kredit=Number(r.Kredit||0);
 
-totalKredit+=Number(r.Kredit||0);
+totalDebit+=debit;
+totalKredit+=kredit;
 
-kas.innerHTML+=`
+if(r.Nama && r.Nama.toLowerCase()==namaLogin.toLowerCase()){
+
+totalBayar+=debit;
+
+tabelUser.innerHTML+=`
 <tr>
-<td>${r.Tanggal||""}</td>
-<td>${r.Nama||""}</td>
-<td>${r.Keterangan||""}</td>
-<td>${rupiah(r.Debit)}</td>
-<td>${rupiah(r.Kredit)}</td>
-</tr>`;
+<td>${r.Tanggal}</td>
+<td>${r.Keterangan}</td>
+<td>${rupiah(debit)}</td>
+<td>${rupiah(kredit)}</td>
+</tr>
+`;
+
+}
+
 });
+
+const totalKas=totalDebit-totalKredit;
+const totalWajib=kasPerMinggu*mingguBerjalan;
+
+let utang=totalWajib-totalBayar;
+if(utang<0) utang=0;
+
+document.getElementById("saldoUser").innerText=rupiah(utang);
+document.getElementById("totalKas").innerText=rupiah(totalKas);
+document.getElementById("totalBayar").innerText=rupiah(totalBayar);
+document.getElementById("totalWajib").innerText=rupiah(totalWajib);
+document.getElementById("utangUser").innerText=rupiah(utang);
+
+if(utang===0 && totalWajib>0){
+document.querySelector(".atm-card").classList.add("lunas");
+}
+
+const progress=(totalBayar/totalWajib)*100;
+
+document.getElementById("progressBar").style.width=progress+"%";
+
+document.getElementById("progressText").innerText=
+"Kas minggu ke-"+mingguBerjalan+" • Anda sudah membayar "+progress.toFixed(0)+"% dari kewajiban kas";
 
 const ctx=document.getElementById("kasChart").getContext("2d");
 
@@ -385,83 +545,48 @@ type:"doughnut",
 data:{
 labels:["Pemasukan","Pengeluaran"],
 datasets:[{
-data:[totalDebit,totalKredit],
-backgroundColor:["#28a745","#dc3545"]
+data:[totalDebit,totalKredit]
 }]
 },
 options:{plugins:{legend:{position:"bottom"}}}
 });
 
-const utang=document.getElementById("tabelUtang");
+const ranking={};
 
-utang.innerHTML="";
+data.dataKas.forEach(r=>{
+if(!ranking[r.Nama]) ranking[r.Nama]=0;
+ranking[r.Nama]+=Number(r.Debit||0);
+});
 
-data.statistik.forEach(r=>{
+const rankingArr=Object.entries(ranking).sort((a,b)=>b[1]-a[1]);
 
-const status=r.utang<=0?
-'<span class="status-lunas">Lunas</span>':
-'<span class="status-belum">Belum</span>';
+const rankingTable=document.getElementById("rankingTable");
 
-utang.innerHTML+=`
+rankingTable.innerHTML="";
+
+rankingArr.slice(0,5).forEach((r,i)=>{
+
+rankingTable.innerHTML+=`
 <tr>
-<td>${r.nama}</td>
-<td>${rupiah(r.utang)}</td>
-<td>${status}</td>
-</tr>`;
+<td>${i+1}</td>
+<td>${r[0]}</td>
+<td>${rupiah(r[1])}</td>
+</tr>
+`;
 
 });
 
 }
-
 catch(e){
-
-alert("Gagal memuat data")
-
+alert("Gagal memuat data");
 }
 
-finally{
-
-showLoading(false)
-
-}
+document.getElementById("loadingOverlay").style.display="none";
 
 }
 
 loadData();
-
 setInterval(loadData,60000);
-
-document.getElementById("toggleRiwayat").onclick=function(){
-
-const box=document.getElementById("riwayatBox");
-
-if(box.style.display==="none"){
-
-box.style.display="block";
-
-this.textContent="❌ Tutup Riwayat";
-
-}else{
-
-box.style.display="none";
-
-this.textContent="👁 Lihat Riwayat";
-
-}
-
-};
-
-document.getElementById("searchInput").addEventListener("keyup",function(){
-
-let val=this.value.toLowerCase();
-
-document.querySelectorAll("#tabelUtang tr").forEach(tr=>{
-
-tr.style.display=tr.innerText.toLowerCase().includes(val)?"":"none";
-
-});
-
-});
 
 </script>
 
