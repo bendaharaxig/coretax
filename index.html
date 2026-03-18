@@ -1,783 +1,181 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
 
-<title>CORETAX</title>
+    <script>
+// cek apakah sudah login
+const namaLogin = localStorage.getItem("namaLogin");
 
-<link rel="icon" href="logo.png">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<style>
-
-*{box-sizing:border-box}
-
-body{
-margin:0;
-font-family:"Poppins",sans-serif;
-background:#f2f5fb;
-color:#333;
+if(namaLogin){
+    window.location.replace("user.html"); // samakan dengan dashboard kamu
 }
+</script>
 
-/* HEADER */
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="K4lKiHx53tLL1N17IMrs941YBfcrnKjYvfC3a7Pu">
+    <meta name="author" content="Almazari">
 
-.header{
-background:linear-gradient(135deg,#005bea,#00c6fb);
-padding:18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-color:#fff;
-}
+    <title>exsociothree</title>
 
-.header-left{
-display:flex;
-align-items:center;
-gap:10px;
-}
+    <link rel="icon" href="https://vigara.mediadidik.com/media/4fcdc343-bf7c-439c-b9a5-b30ea1416419.ico" type="image/x-icon" />
 
-.logo-box{
-width:42px;
-height:42px;
-border-radius:12px;
-overflow:hidden;
-background:#fff;
-padding:5px;
-}
+    <script src="/js/app.js?id=ba426d0347621fb871b2" defer></script>
 
-.logo-box img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-.header h1{
-font-size:18px;
-margin:0;
-}
+    <link href="https://vigara.mediadidik.com/css/user-5.css?id=f848464b8339b509ea4e" rel="stylesheet">
 
-.btn-admin{
-background:#fff;
-color:#005bea;
-padding:7px 12px;
-border-radius:20px;
-font-size:12px;
-text-decoration:none;
-cursor:pointer;
-margin-left:5px;
-}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
 
-/* LOGIN */
-
-#loginPage{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:#f2f5fb;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:1000;
-}
-
-.login-card{
-background:white;
-padding:25px;
-border-radius:16px;
-box-shadow:0 10px 30px rgba(0,0,0,.1);
-width:280px;
-text-align:center;
-}
-
-.login-card select{
-width:100%;
-padding:10px;
-border-radius:10px;
-border:1px solid #ddd;
-margin-top:10px;
-}
-
-.login-card button{
-margin-top:15px;
-width:100%;
-padding:10px;
-border:none;
-border-radius:10px;
-background:#005bea;
-color:white;
-font-weight:600;
-cursor:pointer;
-}
-
-/* CONTAINER */
-
-.container{
-max-width:600px;
-margin:auto;
-padding:15px;
-margin-top:-25px;
-}
-
-/* CARD */
-
-.card{
-background:#fff;
-padding:16px;
-border-radius:16px;
-margin-bottom:15px;
-box-shadow:0 8px 20px rgba(0,0,0,.05);
-}
-
-/* ATM CARD */
-
-.atm-card{
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-color:#fff;
-padding:22px;
-border-radius:18px;
-margin-bottom:15px;
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-}
-
-.atm-card.lunas{
-background:linear-gradient(135deg,#00b09b,#00ff87);
-}
-
-.atm-top{
-display:flex;
-justify-content:space-between;
-align-items:center;
-font-size:12px;
-}
-
-.atm-top img{
-width:35px;
-}
-
-.atm-number{
-margin-top:25px;
-font-size:18px;
-font-weight:600;
-}
-
-.atm-saldo{
-margin-top:10px;
-font-size:12px;
-}
-
-.atm-saldo h2{
-margin:4px 0 0;
-font-size:26px;
-}
-
-/* GRID */
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px;
-}
-
-.grid-box{
-background:#f6f8ff;
-padding:14px;
-border-radius:12px;
-font-size:12px;
-}
-
-.grid-box strong{
-display:block;
-margin-top:4px;
-font-size:15px;
-color:#005bea;
-cursor:pointer;
-}
-
-/* PROGRESS */
-
-.progress-box{
-width:100%;
-background:#eee;
-border-radius:20px;
-height:14px;
-overflow:hidden;
-}
-
-.progress-bar{
-height:14px;
-background:linear-gradient(90deg,#00c6fb,#005bea);
-width:0%;
-transition:0.6s;
-}
-
-/* TABLE */
-
-table{
-width:100%;
-border-collapse:collapse;
-font-size:12px;
-}
-
-th{
-background:#f1f4fb;
-padding:8px;
-text-align:left;
-}
-
-td{
-padding:8px;
-border-bottom:1px solid #eee;
-}
-
-/* LOADING */
-
-#loadingOverlay{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(255,255,255,0.96);
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-z-index:9999;
-}
-
-.logo-loader{
-width:100px;
-height:100px;
-border-radius:20px;
-overflow:hidden;
-animation:pulse 2s infinite;
-margin-bottom:20px;
-}
-
-.logo-loader img{
-width:100%;
-height:100%;
-animation:spin 2s linear infinite;
-}
-
-.loading-text{
-font-weight:600;
-color:#005bea;
-font-size:16px;
-}
-
-.dot{
-animation:blink 1.4s infinite;
-}
-
-.dot:nth-child(2){animation-delay:.2s}
-.dot:nth-child(3){animation-delay:.4s}
-
-@keyframes spin{
-0%{transform:rotate(0)}
-100%{transform:rotate(360deg)}
-}
-
-@keyframes pulse{
-0%{box-shadow:0 0 10px rgba(0,123,255,.3)}
-50%{box-shadow:0 0 30px rgba(0,123,255,.6)}
-100%{box-shadow:0 0 10px rgba(0,123,255,.3)}
-}
-
-@keyframes blink{
-0%{opacity:0}
-50%{opacity:1}
-100%{opacity:0}
-}
-
-/* POPUP */
-
-#kasPopup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-display:none;
-justify-content:center;
-align-items:center;
-z-index:9999;
-}
-
-.popup-box{
-background:white;
-padding:25px;
-border-radius:16px;
-width:300px;
-text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-}
-
-.popup-box button{
-margin-top:15px;
-padding:8px 16px;
-border:none;
-border-radius:10px;
-background:#005bea;
-color:white;
-cursor:pointer;
-}
-
-/* POPUP WELCOME */
-
-#welcomePopup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-display:none;
-justify-content:center;
-align-items:center;
-z-index:9999;
-}
-
-.welcome-box{
-background:white;
-padding:25px;
-border-radius:16px;
-width:300px;
-text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-}
-
-.welcome-box button{
-margin-top:15px;
-padding:8px 16px;
-border:none;
-border-radius:10px;
-background:#005bea;
-color:white;
-cursor:pointer;
-}
-
-</style>
 </head>
 
-<body>
+<body class="bg-white">
+<div id="app">
 
-<!-- LOGIN -->
-<div id="loginPage">
-<div class="login-card">
-<h2>Login CORETAX</h2>
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
+    <div class="container">
+        <a class="navbar-brand pt-0 pb-0 text-truncate" href="#">
+            <img src="https://vigara.mediadidik.com/media/8969588d-93b9-4240-83cb-5898d8bcaaf5.png" style="height:30px;" class="mr-2">
+            Coretax Exsociothree
+        </a>
+    </div>
+</nav>
 
-<select id="namaSelect">
-<option value="">Pilih Nama</option>
-</select>
-
-<button onclick="loginUser()">Masuk</button>
-
-</div>
-</div>
-
-<!-- LOADING -->
-<div id="loadingOverlay">
-
-<div class="logo-loader">
-<img src="logo.png">
-</div>
-
-<div class="loading-text">
-Mengambil data
-<span class="dot">.</span>
-<span class="dot">.</span>
-<span class="dot">.</span>
-</div>
-
-</div>
-
-<!-- POPUP KAS -->
-<div id="kasPopup">
-<div class="popup-box">
-
-<h3>SOMETHING!</h3>
-
-<p style="font-size:13px;margin-top:10px;">
-Fitur ini hanya Tersedia pada Halaman admin, Untuk membuka silahkan Login Sebagai Admin.
-</p>
-
-<button onclick="closeKasPopup()">Close</button>
-
-</div>
-</div>
-
-<!-- POPUP WELCOME -->
-<div id="welcomePopup">
-<div class="welcome-box">
-
-<h3>PEMBERITAHUAN!</h3>
-
-<p style="font-size:13px;margin-top:10px;">
-Sistem Pembaruan Coretax.<br>
-Sitem Coretax saat ini sedang proses pembaruan fitur pembayaran Via link. Nantikan Fitur terbarunya.
-</p>
-
-<button onclick="closeWelcomePopup()">Tutup</button>
-
-</div>
-</div>
-
-<!-- HEADER -->
-
-<div class="header">
-
-<div class="header-left">
-<div class="logo-box">
-<img src="logo.png">
-</div>
-<h1>CORETAX</h1>
-</div>
-
-<div>
-<a href="https://bendaharaxig.github.io/inputkas/" class="btn-admin">Admin</a>
-<a href="https://bendaharaxig.github.io/all/" class="btn-admin">All Data</a>
-</div>
-
-</div>
+<main class="py-4 shadow-sm border-bottom bg-primary" style="min-height:300px;">
 
 <div class="container">
+<div class="row justify-content-center">
+<div class="col-lg-8 col-xl-8">
 
-<div class="card">
+<div class="card mb-4">
+<div class="card-header">Veriflikasi Identitas</div>
 
-<div style="display:flex;justify-content:space-between;align-items:center;">
+<div class="card-body card-body-img">
 
-<div>
-<h3>Selamat datang</h3>
-<strong id="namaUser"></strong>
+<div class="alert alert-info border border-info mb-4 pt-4">
+<p>Selamat Datang di Sistem Coretax XII-G.</p>
 </div>
 
-<button onclick="logout()" style="
-background:#005bea;
-color:white;
-border:none;
-padding:8px 14px;
-border-radius:10px;
-cursor:pointer;
-font-size:12px;
-">
-Logout
+<!-- FORM LOGIN -->
+<form onsubmit="return loginHandler(event)">
+
+<div class="form-group row">
+<label class="col-md-4 col-form-label text-md-right">Peserta</label>
+
+<div class="col-md-6">
+<select id="email" class="form-control" required>
+<option value="">Masukan Abensi Anda</option>
+</select>
+</div>
+</div>
+
+<div class="form-group row">
+<label class="col-md-4 col-form-label text-md-right">Kata sandi</label>
+
+<div class="col-md-6">
+<input id="password" type="password" class="form-control" required>
+</div>
+</div>
+
+<div class="form-group row mb-0">
+<div class="col-md-8 offset-md-4 mt-2">
+<button type="submit" class="btn btn-lg btn-primary">
+Masuk
 </button>
+</div>
+</div>
 
+</form>
+
+</div>
 </div>
 
 </div>
-
-<div class="atm-card">
-
-<div class="atm-top">
-<span>CORETAX CARD</span>
-<img src="logo.png">
+</div>
 </div>
 
-<div class="atm-number" id="namaUserCard"></div>
-
-<div class="atm-saldo">
-Sisa Utang Kas Anda
-<h2 id="saldoUser">Rp 0</h2>
-</div>
+</main>
 
 </div>
 
-<div class="grid">
-
-<div class="grid-box">
-Total Wajib Bayar
-<strong id="totalWajib">Rp 0</strong>
-</div>
-
-<div class="grid-box">
-Total Pembayaran Anda
-<strong id="totalBayar">Rp 0</strong>
-</div>
-
-<div class="grid-box">
-Total Kas Kelas
-<strong onclick="showKasPopup()">👁</strong>
-</div>
-
-<div class="grid-box">
-Jumlah Pengeluaran
-<strong onclick="showKasPopup()">👁</strong>
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>Progress Pembayaran</h3>
-
-<div class="progress-box">
-<div class="progress-bar" id="progressBar"></div>
-</div>
-
-<p id="progressText"></p>
-
-</div>
-
-<div class="card">
-<h3>Grafik Kas Kelas</h3>
-<canvas id="kasChart"></canvas>
-</div>
-
-<div class="card">
-
-<h3>Riwayat Transaksi Anda</h3>
-
-<table>
-
-<thead>
-<tr>
-<th>Tanggal</th>
-<th>Keterangan</th>
-<th>Masuk</th>
-<th>Keluar</th>
-</tr>
-</thead>
-
-<tbody id="tabelUser"></tbody>
-
-</table>
-
-</div>
-
-<div class="card">
-
-<h3>Pembayaran Kas Tertinggi</h3>
-
-<table>
-
-<thead>
-<tr>
-<th>Ranking</th>
-<th>Nama</th>
-<th>Total</th>
-</tr>
-</thead>
-
-<tbody id="rankingTable"></tbody>
-
-</table>
-
-</div>
-
-</div>
-
+<!-- SCRIPT FINAL -->
 <script>
 
 const scriptURL="https://script.google.com/macros/s/AKfycbzjdnnjED9o5RyHOlaf7pPTtK8zAIZ3-er4sBTAP-T6X0F5qYehjhGXoW3GFAs4sdOj6w/exec";
 
-let kasPerMinggu=0;
-let mingguBerjalan=0;
+let daftarNama=[];
 
-const rupiah=n=>'Rp '+Number(n||0).toLocaleString('id-ID');
+// ambil nama dari Google Sheet
+async function loadNama(){
+    try{
+        const res = await fetch(scriptURL);
+        const data = await res.json();
 
-let chart;
+        const select = document.getElementById("email");
+        select.innerHTML = '<option value="">Masukan Abensi Anda</option>';
 
-let namaLogin=localStorage.getItem("namaLogin");
+        if(data.namaAnggota){
 
-function showLoading(){
-document.getElementById("loadingOverlay").style.display="flex";
+            daftarNama = data.namaAnggota;
+
+            data.namaAnggota.forEach((nama, index)=>{
+                const opt = document.createElement("option");
+                opt.value = index + 1;
+                opt.textContent = (index + 1) + " - " + nama;
+                select.appendChild(opt);
+            });
+
+        }
+
+    }catch(e){
+        alert("Gagal memuat data nama");
+    }
 }
 
-function hideLoading(){
-document.getElementById("loadingOverlay").style.display="none";
+// LOGIN
+function loginHandler(event){
+    event.preventDefault();
+
+    const absen = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    if(absen === ""){
+        alert("Pilih absen dulu!");
+        return false;
+    }
+
+    if(password === "12345678"){
+
+        const nama = daftarNama[absen - 1];
+
+        localStorage.setItem("namaLogin", nama);
+
+        window.location.href = "user.html";
+
+    } else {
+        alert("Password salah!");
+    }
+
+    return false;
 }
 
-function loginUser(){
-
-const nama=document.getElementById("namaSelect").value;
-
-if(!nama){
-alert("Pilih nama terlebih dahulu");
-return;
-}
-
-localStorage.setItem("namaLogin",nama);
-location.reload();
-
-}
-
-function logout(){
-localStorage.removeItem("namaLogin");
-location.reload();
-}
-
-function showKasPopup(){
-document.getElementById("kasPopup").style.display="flex";
-}
-
-function closeKasPopup(){
-document.getElementById("kasPopup").style.display="none";
-}
-
-/* POPUP WELCOME */
-
-function showWelcomePopup(){
-document.getElementById("welcomePopup").style.display="flex";
-}
-
-function closeWelcomePopup(){
-document.getElementById("welcomePopup").style.display="none";
-}
-
-async function loadData(){
-
-showLoading();
-
-try{
-
-const res=await fetch(scriptURL);
-const data=await res.json();
-
-kasPerMinggu=data.iuranMingguan || 0;
-mingguBerjalan=data.mingguBerjalan || 0;
-
-const select=document.getElementById("namaSelect");
-
-if(data.namaAnggota){
-
-select.innerHTML='<option value="">Pilih Nama</option>';
-
-data.namaAnggota.forEach(n=>{
-select.innerHTML+=`<option value="${n}">${n}</option>`;
-});
-
-}
-
-if(!namaLogin){
-hideLoading();
-return;
-}
-
-document.getElementById("loginPage").style.display="none";
-
-document.getElementById("namaUser").innerText=namaLogin;
-document.getElementById("namaUserCard").innerText=namaLogin;
-
-let totalDebit=0;
-let totalKredit=0;
-let totalBayar=0;
-
-const tabelUser=document.getElementById("tabelUser");
-tabelUser.innerHTML="";
-
-data.dataKas.forEach(r=>{
-
-const debit=Number(r.Debit||0);
-const kredit=Number(r.Kredit||0);
-
-totalDebit+=debit;
-totalKredit+=kredit;
-
-if(r.Nama && r.Nama.toLowerCase()==namaLogin.toLowerCase()){
-
-totalBayar+=debit;
-
-tabelUser.innerHTML+=`
-<tr>
-<td>${r.Tanggal}</td>
-<td>${r.Keterangan}</td>
-<td>${rupiah(debit)}</td>
-<td>${rupiah(kredit)}</td>
-</tr>
-`;
-
-}
-
-});
-
-const totalKas=totalDebit-totalKredit;
-const totalWajib=kasPerMinggu*mingguBerjalan;
-
-let utang=totalWajib-totalBayar;
-if(utang<0) utang=0;
-
-document.getElementById("saldoUser").innerText=rupiah(utang);
-document.getElementById("totalBayar").innerText=rupiah(totalBayar);
-document.getElementById("totalWajib").innerText=rupiah(totalWajib);
-
-if(utang===0 && totalWajib>0){
-document.querySelector(".atm-card").classList.add("lunas");
-}
-
-const progress=(totalBayar/totalWajib)*100;
-
-document.getElementById("progressBar").style.width=progress+"%";
-
-document.getElementById("progressText").innerText=
-"Kas minggu ke-"+mingguBerjalan+" • Anda sudah membayar "+progress.toFixed(0)+"% dari kewajiban kas";
-
-const ctx=document.getElementById("kasChart").getContext("2d");
-
-if(chart) chart.destroy();
-
-chart=new Chart(ctx,{
-type:"doughnut",
-data:{
-labels:["Pemasukan","Pengeluaran"],
-datasets:[{
-data:[totalDebit,totalKredit]
-}]
-},
-options:{plugins:{legend:{position:"bottom"}}}
-});
-
-const ranking={};
-
-data.dataKas.forEach(r=>{
-if(!ranking[r.Nama]) ranking[r.Nama]=0;
-ranking[r.Nama]+=Number(r.Debit||0);
-});
-
-const rankingArr=Object.entries(ranking).sort((a,b)=>b[1]-a[1]);
-
-const rankingTable=document.getElementById("rankingTable");
-
-rankingTable.innerHTML="";
-
-rankingArr.slice(0,5).forEach((r,i)=>{
-
-rankingTable.innerHTML+=`
-<tr>
-<td>${i+1}</td>
-<td>${r[0]}</td>
-<td>${rupiah(r[1])}</td>
-</tr>
-`;
-
-});
-
-}
-catch(e){
-alert("Gagal memuat data");
-}
-
-hideLoading();
-
-/* popup muncul setelah dashboard tampil */
-
-if(namaLogin){
-setTimeout(showWelcomePopup,700);
-}
-
-}
-
-loadData();
+// jalankan saat halaman dibuka
+loadNama();
 
 </script>
+
+<!-- FOOTER (tetap kamu punya, tidak dihapus) -->
+<div>
+    <div class="py-4">
+        <div class="container text-center">
+            Copyright @ 2026 exsociothree. All Rights Reserved
+            <br>Powered by <strong><a href="12G" target="_blank">12G</a></strong>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
