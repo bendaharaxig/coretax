@@ -2,46 +2,82 @@
 <html lang="id">
 
 <head>
-    <meta charset="utf-8">
+<meta charset="utf-8">
 
-    <script>
+<script>
 // cek apakah sudah login
 const namaLogin = localStorage.getItem("namaLogin");
 
 if(namaLogin){
-    window.location.replace("user.html"); // samakan dengan dashboard kamu
+    window.location.replace("user.html");
 }
 </script>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="K4lKiHx53tLL1N17IMrs941YBfcrnKjYvfC3a7Pu">
-    <meta name="author" content="Almazari">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="csrf-token" content="K4lKiHx53tLL1N17IMrs941YBfcrnKjYvfC3a7Pu">
+<meta name="author" content="Almazari">
 
-    <title>exsociothree</title>
+<title>exsociothree</title>
 
-    <link rel="icon" href="https://vigara.mediadidik.com/media/4fcdc343-bf7c-439c-b9a5-b30ea1416419.ico" type="image/x-icon" />
+<link rel="icon" href="https://vigara.mediadidik.com/media/4fcdc343-bf7c-439c-b9a5-b30ea1416419.ico">
 
-    <script src="/js/app.js?id=ba426d0347621fb871b2" defer></script>
+<script src="/js/app.js?id=ba426d0347621fb871b2" defer></script>
 
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<link href="https://vigara.mediadidik.com/css/user-5.css?id=f848464b8339b509ea4e" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
 
-    <link href="https://vigara.mediadidik.com/css/user-5.css?id=f848464b8339b509ea4e" rel="stylesheet">
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
+<!-- ✅ TAMBAHAN CSS LOADING -->
+<style>
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+</style>
 
 </head>
 
 <body class="bg-white">
+
+<!-- ✅ TAMBAHAN LOADING -->
+<div id="loadingOverlay" style="
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(255,255,255,0.95);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+">
+
+<div style="
+width:60px;
+height:60px;
+border:6px solid #eee;
+border-top:6px solid #007bff;
+border-radius:50%;
+animation:spin 1s linear infinite;
+"></div>
+
+<p style="margin-top:15px;font-weight:600;color:#007bff;">
+Memuat data...
+</p>
+
+</div>
+
 <div id="app">
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm py-3">
-    <div class="container">
-        <a class="navbar-brand pt-0 pb-0 text-truncate" href="#">
-            <img src="https://vigara.mediadidik.com/media/8969588d-93b9-4240-83cb-5898d8bcaaf5.png" style="height:30px;" class="mr-2">
-            Coretax Exsociothree
-        </a>
-    </div>
+<div class="container">
+<a class="navbar-brand pt-0 pb-0 text-truncate">
+<img src="https://vigara.mediadidik.com/media/8969588d-93b9-4240-83cb-5898d8bcaaf5.png" style="height:30px;" class="mr-2">
+Coretax Exsociothree
+</a>
+</div>
 </nav>
 
 <main class="py-4 shadow-sm border-bottom bg-primary" style="min-height:300px;">
@@ -59,7 +95,6 @@ if(namaLogin){
 <p>Selamat Datang di Sistem Coretax XII-G.</p>
 </div>
 
-<!-- FORM LOGIN -->
 <form onsubmit="return loginHandler(event)">
 
 <div class="form-group row">
@@ -104,18 +139,30 @@ Masuk
 <!-- SCRIPT FINAL -->
 <script>
 
-const scriptURL="https://script.google.com/macros/s/AKfycbzjdnnjED9o5RyHOlaf7pPTtK8zAIZ3-er4sBTAP-T6X0F5qYehjhGXoW3GFAs4sdOj6w/exec";
+const scriptURL="https://script.google.com/macros/s/AKfycbzIYdl5_JLmo9krpk3vvkbLT7YJKvXi1hzPkUsHHB25BcBV7vlamivI1pLhst8_-zSHww/exec";
 
 let daftarNama=[];
 
+// ✅ TAMBAHAN FUNCTION LOADING
+function showLoading(){
+    document.getElementById("loadingOverlay").style.display="flex";
+}
+
+function hideLoading(){
+    document.getElementById("loadingOverlay").style.display="none";
+}
+
 // ambil nama dari Google Sheet
 async function loadNama(){
+
+    showLoading(); // 🔥 TAMBAHAN
+
     try{
         const res = await fetch(scriptURL);
         const data = await res.json();
 
         const select = document.getElementById("email");
-        select.innerHTML = '<option value="">Masukan Abensi Anda</option>';
+        select.innerHTML = '<option value="">Pilih Nama Anggota</option>';
 
         if(data.namaAnggota){
 
@@ -133,10 +180,16 @@ async function loadNama(){
     }catch(e){
         alert("Gagal memuat data nama");
     }
+
+    hideLoading(); // 🔥 TAMBAHAN
 }
 
 // LOGIN
-function loginHandler(event){
+function getDevice(){
+    return navigator.userAgent;
+}
+
+async function loginHandler(event){
     event.preventDefault();
 
     const absen = document.getElementById("email").value;
@@ -150,6 +203,15 @@ function loginHandler(event){
     if(password === "12345678"){
 
         const nama = daftarNama[absen - 1];
+
+        await fetch(scriptURL, {
+            method: "POST",
+            body: JSON.stringify({
+                action: "login",
+                nama: nama,
+                device: getDevice()
+            })
+        });
 
         localStorage.setItem("namaLogin", nama);
 
@@ -167,14 +229,14 @@ loadNama();
 
 </script>
 
-<!-- FOOTER (tetap kamu punya, tidak dihapus) -->
+<!-- FOOTER -->
 <div>
-    <div class="py-4">
-        <div class="container text-center">
-            Copyright @ 2026 exsociothree. All Rights Reserved
-            <br>Powered by <strong><a href="12G" target="_blank">12G</a></strong>
-        </div>
-    </div>
+<div class="py-4">
+<div class="container text-center">
+Copyright @ 2026 exsociothree. All Rights Reserved
+<br>Powered by <strong><a href="12G" target="_blank">12G</a></strong>
+</div>
+</div>
 </div>
 
 </body>
