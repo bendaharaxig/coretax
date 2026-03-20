@@ -364,7 +364,6 @@ color:white;
 cursor:pointer;
 }
 
-
 </style>
 </head>
 
@@ -422,11 +421,11 @@ Fitur ini hanya Tersedia pada Halaman admin, Untuk membuka silahkan Login Sebaga
 <h3>PEMBERITAHUAN!</h3>
 
 <p style="font-size:13px;margin-top:10px;">
-Informasi Event Kas #2<br>
-Konfirmasi Akun akan di buka pada 20-25 Maret 2026. Pengumuman Akan dilaksanakan pada 26 Maret 2026. Konfimasi Siswa terpilih di lakukan pada 26-28 Maret 2026, <strong>Klik konfirmasi Event untuk mengikuti.</strong>
+Sistem Pembaruan Coretax.<br>
+Sitem Coretax saat ini sedang proses pembaruan fitur pembayaran Via link. Nantikan Fitur terbarunya.
 </p>
 
-<button onclick="closeWelcomePopup()">KONFIRMASI EVENT</button>
+<button onclick="closeWelcomePopup()">Tutup</button>
 
 </div>
 </div>
@@ -578,7 +577,7 @@ Jumlah Pengeluaran
 
 <script>
 
-const scriptURL="https://script.google.com/macros/s/AKfycbzIYdl5_JLmo9krpk3vvkbLT7YJKvXi1hzPkUsHHB25BcBV7vlamivI1pLhst8_-zSHww/exec";
+const scriptURL="https://script.google.com/macros/s/AKfycbzjdnnjED9o5RyHOlaf7pPTtK8zAIZ3-er4sBTAP-T6X0F5qYehjhGXoW3GFAs4sdOj6w/exec";
 
 let kasPerMinggu=0;
 let mingguBerjalan=0;
@@ -589,10 +588,6 @@ let chart;
 
 let namaLogin=localStorage.getItem("namaLogin");
 
-// =======================
-// LOADING
-// =======================
-
 function showLoading(){
 document.getElementById("loadingOverlay").style.display="flex";
 }
@@ -601,11 +596,8 @@ function hideLoading(){
 document.getElementById("loadingOverlay").style.display="none";
 }
 
-// =======================
-// LOGIN & LOGOUT
-// =======================
-
 function loginUser(){
+
 const nama=document.getElementById("namaSelect").value;
 
 if(!nama){
@@ -615,15 +607,15 @@ return;
 
 localStorage.setItem("namaLogin",nama);
 location.reload();
+
 }
 
 function logout(){
-showLogoutPopup();
-}
+localStorage.removeItem("namaLogin");
 
-// =======================
-// POPUP
-// =======================
+// langsung ke halaman login
+window.location.href = "index.html"; // ⬅️ sesuaikan nama file login kamu
+}
 
 function showKasPopup(){
 document.getElementById("kasPopup").style.display="flex";
@@ -633,6 +625,8 @@ function closeKasPopup(){
 document.getElementById("kasPopup").style.display="none";
 }
 
+/* POPUP WELCOME */
+
 function showWelcomePopup(){
 document.getElementById("welcomePopup").style.display="flex";
 }
@@ -641,55 +635,17 @@ function closeWelcomePopup(){
 document.getElementById("welcomePopup").style.display="none";
 }
 
-// 🔥 FIX: HARUS DI LUAR loadData
-function showLogoutPopup(){
-document.getElementById("logoutPopup").style.display="flex";
-}
-
-function closeLogoutPopup(){
-document.getElementById("logoutPopup").style.display="none";
-}
-
-// =======================
-// LOAD DATA
-// =======================
-
 async function loadData(){
 
 showLoading();
 
 try{
 
-const res = await fetch(scriptURL);
+const res=await fetch(scriptURL);
+const data=await res.json();
 
-if(!res.ok){
-throw new Error("Network error");
-}
-
-const data = await res.json();
-
-console.log("DATA:", data);
-
-// =======================
-// CEK FORCE LOGOUT
-// =======================
-
-if(data.statusUser && namaLogin){
-
-const status = data.statusUser[namaLogin];
-
-if(status === "logout"){
-alert("Anda telah logout oleh admin!");
-localStorage.removeItem("namaLogin");
-window.location.href = "index.html";
-return;
-}
-
-}
-
-// =======================
-// LOAD SELECT NAMA
-// =======================
+kasPerMinggu=data.iuranMingguan || 0;
+mingguBerjalan=data.mingguBerjalan || 0;
 
 const select=document.getElementById("namaSelect");
 
@@ -703,23 +659,12 @@ select.innerHTML+=`<option value="${n}">${n}</option>`;
 
 }
 
-// =======================
-// JIKA BELUM LOGIN
-// =======================
-
 if(!namaLogin){
 hideLoading();
 return;
 }
 
 document.getElementById("loginPage").style.display="none";
-
-// =======================
-// DATA USER
-// =======================
-
-kasPerMinggu=data.iuranMingguan || 0;
-mingguBerjalan=data.mingguBerjalan || 0;
 
 document.getElementById("namaUser").innerText=namaLogin;
 document.getElementById("namaUserCard").innerText=namaLogin;
@@ -756,10 +701,7 @@ tabelUser.innerHTML+=`
 
 });
 
-// =======================
-// HITUNG
-// =======================
-
+const totalKas=totalDebit-totalKredit;
 const totalWajib=kasPerMinggu*mingguBerjalan;
 
 let utang=totalWajib-totalBayar;
@@ -778,11 +720,7 @@ const progress=(totalBayar/totalWajib)*100;
 document.getElementById("progressBar").style.width=progress+"%";
 
 document.getElementById("progressText").innerText=
-"Kas minggu ke-"+mingguBerjalan+" • Anda sudah membayar "+progress.toFixed(0)+"%";
-
-// =======================
-// CHART
-// =======================
+"Kas minggu ke-"+mingguBerjalan+" • Anda sudah membayar "+progress.toFixed(0)+"% dari kewajiban kas";
 
 const ctx=document.getElementById("kasChart").getContext("2d");
 
@@ -798,10 +736,6 @@ data:[totalDebit,totalKredit]
 },
 options:{plugins:{legend:{position:"bottom"}}}
 });
-
-// =======================
-// RANKING
-// =======================
 
 const ranking={};
 
@@ -830,13 +764,13 @@ rankingTable.innerHTML+=`
 
 }
 catch(e){
-console.error(e);
-alert("Gagal memuat data!");
+alert("Gagal memuat data");
 }
 
 hideLoading();
 
-// popup welcome
+/* popup muncul setelah dashboard tampil */
+
 if(namaLogin){
 setTimeout(showWelcomePopup,700);
 }
@@ -846,50 +780,6 @@ setTimeout(showWelcomePopup,700);
 loadData();
 
 </script>
-
-<div id="logoutPopup" style="
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.5);
-display:none;
-justify-content:center;
-align-items:center;
-z-index:9999;
-">
-
-<div style="
-background:white;
-padding:25px;
-border-radius:16px;
-width:300px;
-text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-">
-
-<h3>PERINGATAN!</h3>
-
-<p style="font-size:13px;margin-top:10px;">
-<strong>Anda tidak diizinkan logout.</strong><br>
-Jika tetap ingin logout silahkan konfirmasi admin.
-</p>
-
-<button onclick="closeLogoutPopup()" style="
-margin-top:15px;
-padding:8px 16px;
-border:none;
-border-radius:10px;
-background:#005bea;
-color:white;
-cursor:pointer;
-">
-Tutup
-</button>
-
-</div>
-</div>
 
 </body>
 </html>
