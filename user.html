@@ -492,30 +492,6 @@ Sisa Utang Kas Anda
 
 </div>
 
-<div class="grid">
-
-<div class="grid-box">
-Total Wajib Bayar
-<strong id="totalWajib">Rp 0</strong>
-</div>
-
-<div class="grid-box">
-Total Pembayaran Anda
-<strong id="totalBayar">Rp 0</strong>
-</div>
-
-<div class="grid-box">
-Total Kas Kelas
-<strong onclick="showKasPopup()">👁</strong>
-</div>
-
-<div class="grid-box">
-Jumlah Pengeluaran
-<strong onclick="showKasPopup()">👁</strong>
-</div>
-
-</div>
-
 <div class="card">
 
 <h3>Progress Pembayaran</h3>
@@ -766,8 +742,6 @@ let utang=totalWajib-totalBayar;
 if(utang<0) utang=0;
 
 document.getElementById("saldoUser").innerText=rupiah(utang);
-document.getElementById("totalBayar").innerText=rupiah(totalBayar);
-document.getElementById("totalWajib").innerText=rupiah(totalWajib);
 
 if(utang===0 && totalWajib>0){
 document.querySelector(".atm-card").classList.add("lunas");
