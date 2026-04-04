@@ -1,0 +1,440 @@
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:"Poppins",sans-serif;
+background:#f2f5fb;
+color:#333;
+}
+
+/* HEADER */
+
+.header{
+background:linear-gradient(135deg,#005bea,#00c6fb);
+padding:18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+color:#fff;
+}
+
+.header-left{
+display:flex;
+align-items:center;
+gap:10px;
+}
+
+.logo-box{
+width:42px;
+height:42px;
+border-radius:12px;
+overflow:hidden;
+background:#fff;
+padding:5px;
+}
+
+.logo-box img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.header h1{
+font-size:18px;
+margin:0;
+}
+
+.btn-admin{
+background:#fff;
+color:#005bea;
+padding:7px 12px;
+border-radius:20px;
+font-size:12px;
+text-decoration:none;
+cursor:pointer;
+margin-left:5px;
+}
+
+/* LOGIN */
+
+#loginPage{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:#f2f5fb;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:1000;
+}
+
+.login-card{
+background:white;
+padding:25px;
+border-radius:16px;
+box-shadow:0 10px 30px rgba(0,0,0,.1);
+width:280px;
+text-align:center;
+}
+
+.login-card select{
+width:100%;
+padding:10px;
+border-radius:10px;
+border:1px solid #ddd;
+margin-top:10px;
+}
+
+.login-card button{
+margin-top:15px;
+width:100%;
+padding:10px;
+border:none;
+border-radius:10px;
+background:#005bea;
+color:white;
+font-weight:600;
+cursor:pointer;
+}
+
+/* CONTAINER */
+
+.container{
+max-width:600px;
+margin:auto;
+padding:15px;
+margin-top:-25px;
+}
+
+/* CARD */
+
+.card{
+background:#fff;
+padding:16px;
+border-radius:16px;
+margin-bottom:15px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+/* ATM CARD */
+
+.atm-card{
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:#fff;
+padding:22px;
+border-radius:18px;
+margin-bottom:15px;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+.atm-card.lunas{
+background:linear-gradient(135deg,#00b09b,#00ff87);
+}
+
+.atm-top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:12px;
+}
+
+.atm-top img{
+width:35px;
+}
+
+.atm-number{
+margin-top:25px;
+font-size:18px;
+font-weight:600;
+}
+
+.atm-saldo{
+margin-top:10px;
+font-size:12px;
+}
+
+.atm-saldo h2{
+margin:4px 0 0;
+font-size:26px;
+}
+
+/* GRID */
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.grid-box{
+background:#f6f8ff;
+padding:14px;
+border-radius:12px;
+font-size:12px;
+}
+
+.grid-box strong{
+display:block;
+margin-top:4px;
+font-size:15px;
+color:#005bea;
+cursor:pointer;
+}
+
+/* PROGRESS */
+
+.progress-box{
+width:100%;
+background:#eee;
+border-radius:20px;
+height:14px;
+overflow:hidden;
+}
+
+.progress-bar{
+height:14px;
+background:linear-gradient(90deg,#00c6fb,#005bea);
+width:0%;
+transition:0.6s;
+}
+
+/* TABLE */
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:12px;
+}
+
+th{
+background:#f1f4fb;
+padding:8px;
+text-align:left;
+}
+
+td{
+padding:8px;
+border-bottom:1px solid #eee;
+}
+
+/* LOADING */
+
+#loadingOverlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(255,255,255,0.96);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.logo-loader{
+width:100px;
+height:100px;
+border-radius:20px;
+overflow:hidden;
+animation:pulse 2s infinite;
+margin-bottom:20px;
+}
+
+.logo-loader img{
+width:100%;
+height:100%;
+animation:spin 2s linear infinite;
+}
+
+.loading-text{
+font-weight:600;
+color:#005bea;
+font-size:16px;
+}
+
+.dot{
+animation:blink 1.4s infinite;
+}
+
+.dot:nth-child(2){animation-delay:.2s}
+.dot:nth-child(3){animation-delay:.4s}
+
+@keyframes spin{
+0%{transform:rotate(0)}
+100%{transform:rotate(360deg)}
+}
+
+@keyframes pulse{
+0%{box-shadow:0 0 10px rgba(0,123,255,.3)}
+50%{box-shadow:0 0 30px rgba(0,123,255,.6)}
+100%{box-shadow:0 0 10px rgba(0,123,255,.3)}
+}
+
+@keyframes blink{
+0%{opacity:0}
+50%{opacity:1}
+100%{opacity:0}
+}
+
+/* POPUP */
+
+#kasPopup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.popup-box{
+background:white;
+padding:25px;
+border-radius:16px;
+width:300px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+.popup-box button{
+margin-top:15px;
+padding:8px 16px;
+border:none;
+border-radius:10px;
+background:#005bea;
+color:white;
+cursor:pointer;
+}
+
+/* POPUP WELCOME */
+
+#welcomePopup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+}
+
+.welcome-box{
+background:white;
+padding:25px;
+border-radius:16px;
+width:300px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,.2);
+}
+
+.welcome-box button{
+margin-top:15px;
+padding:8px 16px;
+border:none;
+border-radius:10px;
+background:#005bea;
+color:white;
+cursor:pointer;
+}
+
+/* =======================
+   POPUP DETAIL TRANSAKSI
+   ======================= */
+
+#detailPopup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.5);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:9999;
+animation:fadeIn 0.25s ease;
+}
+
+.detail-box{
+background:white;
+padding:20px;
+border-radius:18px;
+width:320px;
+max-width:90%;
+text-align:left;
+box-shadow:0 15px 40px rgba(0,0,0,0.2);
+animation:scaleIn 0.25s ease;
+}
+
+.detail-box h3{
+text-align:center;
+margin-top:0;
+margin-bottom:15px;
+color:#005bea;
+}
+
+.detail-box p{
+font-size:13px;
+margin:6px 0;
+padding:8px 10px;
+background:#f6f8ff;
+border-radius:10px;
+}
+
+.detail-box button{
+margin-top:15px;
+width:100%;
+padding:10px;
+border:none;
+border-radius:12px;
+background:linear-gradient(135deg,#005bea,#00c6fb);
+color:white;
+font-weight:600;
+cursor:pointer;
+transition:0.2s;
+}
+
+.detail-box button:hover{
+opacity:0.9;
+transform:scale(1.02);
+}
+
+/* klik baris tabel jadi interaktif */
+#tabelUser tr{
+transition:0.2s;
+cursor:pointer;
+}
+
+#tabelUser tr:hover{
+background:#eef3ff;
+transform:scale(1.01);
+}
+
+/* ANIMASI */
+@keyframes fadeIn{
+from{opacity:0}
+to{opacity:1}
+}
+
+@keyframes scaleIn{
+from{
+opacity:0;
+transform:scale(0.9);
+}
+to{
+opacity:1;
+transform:scale(1);
+}
+}
+
