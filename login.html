@@ -7,7 +7,6 @@
 <script>
 // cek apakah sudah login
 const namaLogin = localStorage.getItem("namaLogin");
-
 if(namaLogin){
     window.location.replace("user.html");
 }
@@ -23,11 +22,10 @@ if(namaLogin){
 
 <script src="/js/app.js?id=ba426d0347621fb871b2" defer></script>
 
-<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
 <link href="https://vigara.mediadidik.com/css/user-5.css?id=f848464b8339b509ea4e" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
 
-<!-- ✅ TAMBAHAN CSS LOADING -->
 <style>
 @keyframes spin {
 0% { transform: rotate(0deg); }
@@ -39,7 +37,6 @@ if(namaLogin){
 
 <body class="bg-white">
 
-<!-- ✅ TAMBAHAN LOADING -->
 <div id="loadingOverlay" style="
 position:fixed;
 top:0;
@@ -117,7 +114,7 @@ Coretax Exsociothree
 
 <div class="form-group row mb-0">
 <div class="col-md-8 offset-md-4 mt-2">
-<button type="submit" class="btn btn-lg btn-primary">
+<button id="loginBtn" type="submit" class="btn btn-lg btn-primary">
 Masuk
 </button>
 </div>
@@ -136,14 +133,13 @@ Masuk
 
 </div>
 
-<!-- SCRIPT FINAL -->
 <script>
 
 const scriptURL="https://script.google.com/macros/s/AKfycbzIYdl5_JLmo9krpk3vvkbLT7YJKvXi1hzPkUsHHB25BcBV7vlamivI1pLhst8_-zSHww/exec";
 
 let daftarNama=[];
+let cachedData=null; // 🔥 cache biar gak fetch ulang
 
-// ✅ TAMBAHAN FUNCTION LOADING
 function showLoading(){
     document.getElementById("loadingOverlay").style.display="flex";
 }
@@ -152,39 +148,51 @@ function hideLoading(){
     document.getElementById("loadingOverlay").style.display="none";
 }
 
-// ambil nama dari Google Sheet
 async function loadNama(){
 
-    showLoading(); // 🔥 TAMBAHAN
+    // 🔥 pakai cache kalau ada
+    if(cachedData){
+        renderNama(cachedData);
+        hideLoading();
+        return;
+    }
+
+    showLoading();
 
     try{
         const res = await fetch(scriptURL);
         const data = await res.json();
 
-        const select = document.getElementById("email");
-        select.innerHTML = '<option value="">Pilih Nama Anggota</option>';
-
-        if(data.namaAnggota){
-
-            daftarNama = data.namaAnggota;
-
-            data.namaAnggota.forEach((nama, index)=>{
-                const opt = document.createElement("option");
-                opt.value = index + 1;
-                opt.textContent = (index + 1) + " - " + nama;
-                select.appendChild(opt);
-            });
-
-        }
+        cachedData = data; // simpan cache
+        renderNama(data);
 
     }catch(e){
         alert("Gagal memuat data nama");
     }
 
-    hideLoading(); // 🔥 TAMBAHAN
+    hideLoading();
 }
 
-// LOGIN
+function renderNama(data){
+    const select = document.getElementById("email");
+    select.innerHTML = '<option value="">Pilih Nama Anggota</option>';
+
+    if(data.namaAnggota){
+        daftarNama = data.namaAnggota;
+
+        const fragment = document.createDocumentFragment(); // 🔥 lebih ringan
+
+        data.namaAnggota.forEach((nama, index)=>{
+            const opt = document.createElement("option");
+            opt.value = index + 1;
+            opt.textContent = (index + 1) + " - " + nama;
+            fragment.appendChild(opt);
+        });
+
+        select.appendChild(fragment);
+    }
+}
+
 function getDevice(){
     return navigator.userAgent;
 }
@@ -192,11 +200,17 @@ function getDevice(){
 async function loginHandler(event){
     event.preventDefault();
 
+    const btn = document.getElementById("loginBtn");
+    btn.disabled = true;
+    btn.innerHTML = 'Loading...'; // 🔥 indikator klik
+
     const absen = document.getElementById("email").value;
     const password = document.getElementById("password").value;
 
     if(absen === ""){
         alert("Pilih absen dulu!");
+        btn.disabled = false;
+        btn.innerHTML = 'Masuk';
         return false;
     }
 
@@ -204,14 +218,16 @@ async function loginHandler(event){
 
         const nama = daftarNama[absen - 1];
 
-        await fetch(scriptURL, {
-            method: "POST",
-            body: JSON.stringify({
-                action: "login",
-                nama: nama,
-                device: getDevice()
-            })
-        });
+        try{
+            await fetch(scriptURL, {
+                method: "POST",
+                body: JSON.stringify({
+                    action: "login",
+                    nama: nama,
+                    device: getDevice()
+                })
+            });
+        }catch(e){}
 
         localStorage.setItem("namaLogin", nama);
 
@@ -219,17 +235,20 @@ async function loginHandler(event){
 
     } else {
         alert("Password salah!");
+        btn.disabled = false;
+        btn.innerHTML = 'Masuk';
     }
 
     return false;
 }
 
-// jalankan saat halaman dibuka
-loadNama();
+// 🔥 jalankan setelah render supaya lebih ringan
+window.addEventListener("load", ()=>{
+    setTimeout(loadNama, 100);
+});
 
 </script>
 
-<!-- FOOTER -->
 <div>
 <div class="py-4">
 <div class="container text-center">
