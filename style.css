@@ -121,7 +121,7 @@ box-shadow:0 8px 20px rgba(0,0,0,.05);
 /* ATM CARD */
 
 .atm-card{
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+background:linear-gradient(135deg,#ff3131,#ff0000,#b61111);
 color:#fff;
 padding:22px;
 border-radius:18px;
@@ -130,7 +130,7 @@ box-shadow:0 10px 30px rgba(0,0,0,.2);
 }
 
 .atm-card.lunas{
-background:linear-gradient(135deg,#00b09b,#00ff87);
+background:linear-gradient(135deg,#038eff,#00277c);
 }
 
 .atm-top{
@@ -437,4 +437,3 @@ opacity:1;
 transform:scale(1);
 }
 }
-
