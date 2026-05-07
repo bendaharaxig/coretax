@@ -1,167 +1,370 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>exociothree</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coretax Exsociothree</title>
 
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
+<style>
 
-        .container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            padding: 40px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+}
 
-        .icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-        }
+body{
+    min-height:100vh;
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
 
-        .icon svg {
-            width: 40px;
-            height: 40px;
-            fill: white;
-        }
+.container{
+    width:100%;
+    max-width:420px;
+    background:white;
+    border-radius:28px;
+    padding:35px 25px;
+    box-shadow:0 25px 70px rgba(0,0,0,0.25);
+    text-align:center;
+    animation:fadeIn 1s ease;
+}
 
-        h1 {
-            color: #333;
-            font-size: 24px;
-            margin-bottom: 10px;
-        }
+/* ========================= */
+/* LOADER CHECK ANIMATION */
+/* ========================= */
 
-        .subtitle {
-            color: #666;
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
+.top-check{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    margin-bottom:28px;
+}
 
-        .balance-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 15px;
-            padding: 30px;
-            color: white;
-            margin-bottom: 20px;
-        }
+.loader-check{
+    width:75px;
+    height:75px;
+    position:relative;
+}
 
-        .balance-label {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 10px;
-        }
+.loader-check svg{
+    width:100%;
+    height:100%;
+}
 
-        .balance-amount {
-            font-size: 42px;
-            font-weight: bold;
-        }
+.circle-bg{
+    fill:none;
+    stroke:#e8f5e9;
+    stroke-width:8;
+}
 
-        .balance-source {
-            font-size: 12px;
-            opacity: 0.8;
-            margin-top: 10px;
-        }
+.circle-progress{
+    fill:none;
+    stroke:#4caf50;
+    stroke-width:8;
+    stroke-linecap:round;
 
-        .info {
-            background: #f5f5f5;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: left;
-        }
+    stroke-dasharray:314;
+    stroke-dashoffset:314;
 
-        .info-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #e0e0e0;
-        }
+    transform-origin:center;
+    transform:rotate(-90deg);
+    animation:loadingCircle 2.8s ease-in-out infinite;
+}
 
-        .info-row:last-child {
-            border-bottom: none;
-        }
+.check-path{
+    fill:none;
+    stroke:#4caf50;
+    stroke-width:6;
+    stroke-linecap:round;
+    stroke-linejoin:round;
 
-        .info-label {
-            color: #666;
-            font-size: 13px;
-        }
+    stroke-dasharray:80;
+    stroke-dashoffset:80;
 
-        .info-value {
-            color: #333;
-            font-size: 13px;
-            font-weight: 500;
-        }
+    animation:drawCheck 2.8s ease-in-out infinite;
+}
 
-        .status {
-            display: inline-block;
-            background: #4caf50;
-            color: white;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 12px;
-            margin-top: 20px;
-        }
-    </style>
+.status-text{
+    margin-top:14px;
+    font-size:15px;
+    font-weight:600;
+    color:#2e7d32;
+    animation:fadeText 2.8s infinite;
+}
+
+/* ===================== */
+/* TITLE */
+/* ===================== */
+
+h1{
+    color:#333;
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    color:#777;
+    font-size:14px;
+    line-height:1.6;
+    margin-bottom:28px;
+}
+
+/* ===================== */
+/* BALANCE CARD */
+/* ===================== */
+
+.balance-card{
+    background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+    border-radius:22px;
+    padding:32px 22px;
+    color:white;
+    margin-bottom:24px;
+    position:relative;
+    overflow:hidden;
+}
+
+.balance-card::before{
+    content:'';
+    position:absolute;
+    width:200px;
+    height:200px;
+    background:rgba(255,255,255,0.1);
+    border-radius:50%;
+    top:-90px;
+    right:-80px;
+}
+
+.balance-label{
+    font-size:14px;
+    opacity:0.9;
+    letter-spacing:1px;
+    margin-bottom:10px;
+}
+
+.balance-amount{
+    font-size:clamp(34px, 8vw, 48px);
+    font-weight:bold;
+}
+
+.balance-source{
+    margin-top:12px;
+    font-size:13px;
+    opacity:0.85;
+}
+
+/* ===================== */
+/* INFO */
+/* ===================== */
+
+.info{
+    background:#f5f5f5;
+    border-radius:18px;
+    padding:15px;
+    text-align:left;
+}
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    padding:13px 0;
+    border-bottom:1px solid #ddd;
+    flex-wrap:wrap;
+}
+
+.info-row:last-child{
+    border-bottom:none;
+}
+
+.info-label{
+    color:#666;
+    font-size:13px;
+}
+
+.info-value{
+    color:#222;
+    font-size:13px;
+    font-weight:600;
+}
+
+/* ===================== */
+/* RESPONSIVE */
+/* ===================== */
+
+@media (max-width:480px){
+
+    .container{
+        padding:28px 18px;
+    }
+
+    h1{
+        font-size:24px;
+    }
+
+    .balance-card{
+        padding:28px 18px;
+    }
+
+    .info-row{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+}
+
+/* ========================= */
+/* ANIMATIONS */
+/* ========================= */
+
+@keyframes loadingCircle{
+
+    0%{
+        stroke-dashoffset:314;
+    }
+
+    40%{
+        stroke-dashoffset:0;
+    }
+
+    80%{
+        stroke-dashoffset:0;
+    }
+
+    100%{
+        stroke-dashoffset:314;
+    }
+}
+
+@keyframes drawCheck{
+
+    0%,35%{
+        stroke-dashoffset:80;
+    }
+
+    50%,80%{
+        stroke-dashoffset:0;
+    }
+
+    100%{
+        stroke-dashoffset:80;
+    }
+}
+
+@keyframes fadeText{
+
+    0%,100%{
+        opacity:0.6;
+    }
+
+    50%{
+        opacity:1;
+    }
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="icon">
-            <svg viewBox="0 0 24 24">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z"/>
+
+<div class="container">
+
+    <!-- CHECK LOADER -->
+    <div class="top-check">
+
+        <div class="loader-check">
+
+            <svg viewBox="0 0 120 120">
+
+                <!-- BACKGROUND -->
+                <circle class="circle-bg"
+                    cx="60"
+                    cy="60"
+                    r="50" />
+
+                <!-- LOADING -->
+                <circle class="circle-progress"
+                    cx="60"
+                    cy="60"
+                    r="50" />
+
+                <!-- CHECK -->
+                <path class="check-path"
+                    d="M38 60 L52 74 L84 42" />
+
             </svg>
+
         </div>
-        
-        <h1>Coretax Exsociothree</h1>
-        <p class="subtitle">Informasi saldo subsidi yang diterima</p>
-        
-        <div class="balance-card">
-            <div class="balance-label">SALDO SUBSIDI</div>
-            <div class="balance-amount">Rp 50.000</div>
-            <div class="balance-source">Subsidi Kas Kelas</div>
+
+        <div class="status-text">
+            Saldo Tersedia
         </div>
-        
-        <div class="info">
-            <div class="info-row">
-                <span class="info-label">Sumber Dana</span>
-                <span class="info-value">Danagatra exsociothree</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Jumlah</span>
-                <span class="info-value">Rp 1.800.000</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Status</span>
-                <span class="info-value">Diterima</span>
-            </div>
-            <div class="info-row">
-                <span class="info-label">Tanggal</span>
-                <span class="info-value">29 April 2026</span>
-            </div>
-        </div>
-        
-        <div class="status">✓ Saldo Tersedia</div>
+
     </div>
+
+    <h1>Coretax Exsociothree</h1>
+
+    <p class="subtitle">
+        Informasi saldo subsidi yang diterima
+    </p>
+
+    <div class="balance-card">
+
+        <div class="balance-label">
+            SALDO SUBSIDI
+        </div>
+
+        <div class="balance-amount">
+            Rp 50.000
+        </div>
+
+        <div class="balance-source">
+            Subsidi Kas Kelas
+        </div>
+
+    </div>
+
+    <div class="info">
+
+        <div class="info-row">
+            <span class="info-label">Sumber Dana</span>
+            <span class="info-value">Danagatra exsociothree</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Jumlah</span>
+            <span class="info-value">Rp 1.800.000</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Status</span>
+            <span class="info-value">Diterima</span>
+        </div>
+
+        <div class="info-row">
+            <span class="info-label">Tanggal</span>
+            <span class="info-value">29 April 2026</span>
+        </div>
+
+    </div>
+
+</div>
+
 </body>
 </html>
